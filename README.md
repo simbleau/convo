@@ -12,20 +12,11 @@ This program is the minimal crate for parsing and walking dialogue trees. A GUI 
 
 The intent is to safely parse dialogue trees and walk complex conversations easily. Conversations resemble a traditional dialogue tree model, and can be cyclic.
 
-# Sections
-
-* [Motivation](#motivation)
-* [State](#state)
-* [Using convo](#using-convo)
-* [Getting Started](#getting-started)
-* [Contributing](#contributing)
-* [License](#license)
-
-## State
+# State
 
 convo is in active development. Right now there is nothing here.
 
-## Using convo
+# Using convo
 
 convo is designed to be easy to use. At the moment the crate is **not** published. The crate will be published on [crates.io](https://crates.io/crates/convo) when it is ready. The easiest way to use convo is by adding the lone dependency to your `Cargo.toml` file:
 
@@ -35,16 +26,16 @@ convo = "0.0.0" # Not released
 
 # Getting Started
 
-Don't hesitate to [file an issue](https://github.com/simbleau/convo/issues/new) or contact [@simbleau](https://github.com/simbleau) by [e-mail](mailto:spencer@imbleau.com).
+Don't hesitate to [file an issue](https://github.com/simbleau/convo/issues/new) or contact [@simbleau](https://github.com/simbleau) by [e-mail](mailto:spencer@imbleau.com) or [@ThomasHoutart](https://github.com/ThomasHoutart) by [e-mail](mailto:thomas.houtart98@gmail.com).
 
 This section is TODO.
 
-## Contributing
+# Contributing
 
 I encourage all contributions by pull request. Please check the [issues](https://github.com/simbleau/convo/issues) first if you'd like to help.
 
 The [Rust code of conduct](https://www.rust-lang.org/policies/code-of-conduct) applies.
 
-## License
+# License
 
 This  project is dual-licensed under both [Apache 2.0](https://github.com/simbleau/convo/blob/main/LICENSE-APACHE) and [MIT](https://github.com/simbleau/convo/blob/main/LICENSE-MIT) licenses.
