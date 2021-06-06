@@ -1,4 +1,4 @@
-use crate::dialogue_link::*;
+use crate::link::Link;
 
 // A conversation node
 

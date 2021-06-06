@@ -1,11 +1,11 @@
-use convo::dialogue_tree::DialogueTree;
+use convo_lib::tree::CTree;
 
-extern crate convo;
+extern crate convo_lib;
 
 #[test]
 // Basic print out of all nodes and links - Not a great test
 fn test_print() {
-    let tree = DialogueTree::example_tree();
+    let tree = CTree::example_tree();
     for (_, node) in tree.nodes() {
         println!("Node [{}]: '{}'", node.key(), node.description());
         for link in node.links() {

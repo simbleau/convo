@@ -1,17 +1,17 @@
 use std::collections::HashMap;
 
-use crate::{dialogue_link::*, dialogue_node::*};
+use crate::{link::Link, node::Node};
 
 #[derive(Debug)]
-pub struct DialogueTree {
+pub struct CTree {
     nodes: HashMap<String, Node>,
     root: String,
     current: String,
 }
 
-impl DialogueTree {
+impl CTree {
     // Example tree for testing
-    pub fn example_tree() -> DialogueTree {
+    pub fn example_tree() -> CTree {
         // Build nodes
         let mut node1 = Node::new("root".to_string(), vec![], "How are you?".to_string());
         let node2 = Node::new("n2".to_string(), vec![], "Don't be late!".to_string());
@@ -27,7 +27,7 @@ impl DialogueTree {
         nodes.insert(node1.key().clone(), node1);
         nodes.insert(node2.key().clone(), node2);
 
-        DialogueTree {
+        CTree {
             nodes,
             root: "root".to_string(),
             current: "root".to_string(),
@@ -35,12 +35,12 @@ impl DialogueTree {
     }
 
     // Construct a dialogue tree
-    pub fn from(_source: &str, _root: &str) -> Result<DialogueTree, &'static str> {
+    pub fn from(_source: &str, _root: &str) -> Result<CTree, &'static str> {
         todo!("Not yet implemented");
     }
 
     // Reset the current node to root
-    pub fn reset(&mut self) -> &DialogueTree {
+    pub fn reset(&mut self) -> &CTree {
         self.current = self.root.clone();
         self
     }

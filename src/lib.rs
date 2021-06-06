@@ -10,10 +10,6 @@
 //! A modern dialogue executor and tree parser using Extended Backus-Naur Form.
 extern crate nom;
 
-pub mod dialogue_link;
-pub mod dialogue_node;
-pub mod dialogue_tree;
-
 #[cfg(test)]
 mod tests {
     #[test]

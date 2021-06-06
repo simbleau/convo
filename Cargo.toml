@@ -4,6 +4,13 @@ version = "0.1.0"
 authors = ["Spencer Imbleau <spencer@imbleau.com>"]
 edition = "2018"
 
-[dependencies]
-futures = "0.3"
-nom = {version = "6", regexp = true}
+[dependencies.nom]
+version = "6"
+features = ["regexp"]
+
+[dependencies.convo-lib]
+version = "*"
+path = "convo-lib"
+
+[workspace]
+members = ["convo-lib"]
