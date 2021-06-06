@@ -1,0 +1,9 @@
+[package]
+name = "convo"
+version = "0.1.0"
+authors = ["Spencer Imbleau <spencer@imbleau.com>"]
+edition = "2018"
+
+[dependencies]
+futures = "0.3"
+nom = {version = "6", regexp = true}
