@@ -7,11 +7,3 @@
 
 //! A modern dialogue executor and tree parser using Extended Backus-Naur Form.
 extern crate nom;
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn first_test() {
-        assert!(true);
-    }
-}
