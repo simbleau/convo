@@ -17,12 +17,12 @@ pub struct Node {
 // Methods for a Node
 impl Node {
     // Construct a node
-    pub fn new<T>(key: String, dialogue: T) -> Node
+    pub fn new<T>(key: T, dialogue: T) -> Node
     where
         T: Into<String>,
     {
         Node {
-            key,
+            key: key.into(),
             dialogue: dialogue.into(),
             links: vec![],
         }
