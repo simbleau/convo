@@ -23,10 +23,13 @@ impl Link {
     }
 
     // Create the link from one node to the next
-    pub fn link(from: &mut Node, to: &Node, dialogue: String) {
+    pub fn link<T>(from: &mut Node, to: &Node, dialogue: T)
+    where
+        T: Into<String>,
+    {
         let link = Link {
             to: to.key().clone(),
-            dialogue,
+            dialogue: dialogue.into(),
         };
         from.links_mut().push(link);
     }
