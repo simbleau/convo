@@ -35,7 +35,7 @@ impl CTree {
     pub fn set_root(&mut self, node: &Node) -> Result<&CTree, &'static str> {
         // Take ownership if necessary
         if self.root.is_some() {
-            self.root.take().unwrap();
+            self.root.take();
         }
 
         self.root = Some(node.key().clone());
@@ -50,7 +50,7 @@ impl CTree {
 
         // Take ownership if necessary
         if self.current.is_some() {
-            self.current.take().unwrap();
+            self.current.take();
         }
 
         self.current = Some(self.root().unwrap().clone());
