@@ -12,10 +12,13 @@ pub struct Link {
 
 impl Link {
     // Construct a link
-    pub fn new(to: &Node, dialogue: String) -> Link {
+    pub fn new<T>(to: &Node, dialogue: T) -> Link
+    where
+        T: Into<String>,
+    {
         Link {
             to: to.key().clone(),
-            dialogue,
+            dialogue: dialogue.into(),
         }
     }
 
