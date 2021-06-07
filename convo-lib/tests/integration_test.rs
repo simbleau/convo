@@ -8,14 +8,14 @@ fn test_print() {
     let mut tree = CTree::default();
 
     // Build some nodes
-    let mut node1 = Node::new("root".to_string(), "How are you?".to_string());
-    let node2 = Node::new("end".to_string(), "Don't be late!".to_string());
+    let mut node1 = Node::new("root", "How are you?");
+    let node2 = Node::new("end", "Don't be late!");
 
     // Set node1 as root
     tree.set_root(&node1).unwrap();
 
     // Link node1 -> node 2
-    Link::link(&mut node1, &node2, "Sorry, I'm in a hurry!".to_string());
+    Link::link(&mut node1, &node2, "Sorry, I'm in a hurry!");
 
     // Populate the tree
     tree.nodes_mut().insert(node1.key().clone(), node1);
