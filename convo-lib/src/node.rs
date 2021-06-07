@@ -4,24 +4,24 @@ use crate::link::Link;
 
 #[derive(Debug)]
 pub struct Node {
-    /// The key of this node; should be unique
+    /// The key of this node; must be unique
     key: String,
+
+    /// The dialogue of the node
+    dialogue: String,
 
     /// The links to other nodes
     links: Vec<Link>,
-
-    /// The description of the node
-    description: String,
 }
 
 // Methods for a Node
 impl Node {
     // Construct a node
-    pub fn new(key: String, links: Vec<Link>, description: String) -> Node {
+    pub fn new(key: String, dialogue: String) -> Node {
         Node {
             key,
-            links,
-            description,
+            dialogue,
+            links: vec![],
         }
     }
 
@@ -45,13 +45,13 @@ impl Node {
         &mut self.links
     }
 
-    // Immutable access to node's description
-    pub fn description(&self) -> &String {
-        &self.description
+    // Immutable access to node's dialogue
+    pub fn dialogue(&self) -> &String {
+        &self.dialogue
     }
 
-    // Mutable access to node's description
-    pub fn description_mut(&mut self) -> &mut String {
-        &mut self.description
+    // Mutable access to node's dialogue
+    pub fn dialogue_mut(&mut self) -> &mut String {
+        &mut self.dialogue
     }
 }
