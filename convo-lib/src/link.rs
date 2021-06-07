@@ -28,7 +28,7 @@ impl Link {
             to: to.key().clone(),
             dialogue,
         };
-        from.links_mut().insert(0, link);
+        from.links_mut().push(link);
     }
 
     // Immutable access to node
