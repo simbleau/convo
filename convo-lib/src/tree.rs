@@ -32,13 +32,22 @@ impl CTree {
     }
 
     // Set the root
-    pub fn set_root(&mut self, node: &Node) -> Result<&CTree, &'static str> {
+    pub fn set_root<T>(&mut self, node: T) -> Result<&CTree, &'static str>
+    where
+        T: Into<String>,
+    {
         // Take ownership if necessary
         if self.root.is_some() {
             self.root.take();
         }
 
-        self.root = Some(node.key().clone());
+        // Check existence
+        let root_key = node.into();
+        if !self.nodes.contains_key(&root_key) {
+            return Err("");
+        }
+
+        self.root = Some(root_key);
         Ok(self)
     }
 

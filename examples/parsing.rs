@@ -9,5 +9,5 @@ fn main() {
 
     println!("Parsing...");
     let ctree = convo::parser::parse(path).unwrap();
-    println!("Completed.\n\n{:?}", ctree);
+    println!("Completed.\n\n{:#?}", ctree);
 }

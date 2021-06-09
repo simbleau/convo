@@ -4,6 +4,11 @@ version = "0.1.0"
 authors = ["Spencer Imbleau <spencer@imbleau.com>"]
 edition = "2018"
 
+[dependencies]
+yaml-rust = "0.4"
+serde = "1.0"
+serde_yaml = "0.8"
+
 [dependencies.nom]
 version = "6"
 features = ["regexp"]
