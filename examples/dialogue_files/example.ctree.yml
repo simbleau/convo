@@ -1,0 +1,13 @@
+--- 
+root: start
+
+nodes: 
+
+  start: 
+    dialogue: "How are you?"
+    links: 
+      - end: "Sorry, I'm in a hurry!"
+        start: "Return"
+
+  end: 
+    dialogue: "Ok, cya later!"
