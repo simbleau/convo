@@ -4,17 +4,17 @@
 [![Build Status](https://travis-ci.org/simbleau/convo.svg?branch=main)](https://travis-ci.com/simbleau/convo)
 [![Dependency Status](https://deps.rs/repo/github/simbleau/convo/status.svg)](https://deps.rs/repo/github/simbleau/convo)
 
-A modern dialogue executor and tree parser using Extended Backus-Naur Form.
+A modern dialogue executor and tree parser using YAML.
 
 This program is the minimal crate for parsing and walking dialogue trees. A GUI implementation for editing and creating dialogue trees is coming.
 
 # Motivation
 
-The intent is to safely parse dialogue trees and walk complex conversations easily. Conversations resemble a traditional dialogue tree model, and can be cyclic.
+The intent is to safely parse dialogue trees and walk complex conversations easily. Conversations resemble a traditional dialogue tree model, and can be cyclic. YAML representation makes creating dialogue trees intuitive and easy, even without a formal editor.
 
 # State
 
-convo is in active development. Right now there is nothing here.
+convo is in active development. Right now only the seeds are planted.
 
 # Using convo
 
