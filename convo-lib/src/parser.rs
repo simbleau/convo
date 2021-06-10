@@ -76,8 +76,9 @@ pub(crate) fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
 fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
     // This needs some major cleanup
 
-    let root = yaml["root"].as_str().ok_or_else(|| "The root is missing")?;
-    println!("Root: {:?}", root);
+    let root_key = yaml["root"]
+        .as_str()
+        .ok_or_else(|| "The root key is missing")?;
 
     let node_map = yaml["nodes"]
         .as_hash()
@@ -99,16 +100,15 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
         });
 
     // Set root and current
-    let root_node_key = tree
-        .nodes
-        .get(root)
-        .ok_or_else(|| format!("Root node DNE for {:?}", root))?
-        .key
-        .clone();
+    if !tree.nodes.contains_key(root_key) {
+        return Err(ParseError::Tree(TreeError::NodeDNE(
+            format!("Root node DNE for key '{:?}'", root_key).to_owned(),
+        )));
+    }
 
     // Safety : Sound code - root node guaranteed to exist, per above
     unsafe {
-        tree.set_root_unchecked(&root_node_key);
+        tree.set_root_unchecked(&root_key);
         tree.reset_unchecked();
     }
 
