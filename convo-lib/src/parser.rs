@@ -1,7 +1,9 @@
 extern crate yaml_rust;
 
-use crate::CTree;
-use convo_lib::{link::Link, node::Node};
+use crate::link::Link;
+use crate::node::Node;
+use crate::tree::CTree;
+
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};
 
@@ -138,15 +140,15 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
     Ok(node)
 }
 
-fn yaml_to_links(yaml_links: &Yaml) -> Result<Vec<Link>, ParseError> {
+fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
     // Unwrap link hashmap
-    let links = yaml_links
+    let links = yaml
         .as_vec()
-        .ok_or_else(|| format!("Links not an array for '{:?}'", yaml_links))?
+        .ok_or_else(|| format!("Links not an array for '{:?}'", yaml))?
         .first()
-        .ok_or_else(|| format!("Links empty for '{:?}'", yaml_links))?
+        .ok_or_else(|| format!("Links empty for '{:?}'", yaml))?
         .as_hash()
-        .ok_or_else(|| format!("Links not a hash for '{:?}'", yaml_links))?
+        .ok_or_else(|| format!("Links not a hash for '{:?}'", yaml))?
         .iter();
 
     // Collect links
@@ -154,7 +156,7 @@ fn yaml_to_links(yaml_links: &Yaml) -> Result<Vec<Link>, ParseError> {
     for (yaml_to, yaml_dialogue) in links {
         let to = yaml_to
             .as_str()
-            .ok_or_else(|| format!("Link name missing for '{:?}'", yaml_links))?;
+            .ok_or_else(|| format!("Link name missing for '{:?}'", yaml))?;
         let dialogue = yaml_dialogue
             .as_str()
             .ok_or_else(|| format!("Links dialogue missing for '{:?}'", to))?;

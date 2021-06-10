@@ -9,7 +9,5 @@
 */
 
 //! A modern dialogue executor and tree parser using YAML, focusing on ease-of-use
-mod parser;
-
+pub use convo_lib::parser::parse;
 pub use convo_lib::tree::CTree;
-pub use parser::parse;
