@@ -3,6 +3,7 @@ extern crate yaml_rust;
 use crate::link::Link;
 use crate::node::Node;
 use crate::tree::CTree;
+use crate::tree::TreeError;
 
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};
@@ -11,6 +12,7 @@ use yaml_rust::{Yaml, YamlLoader};
 pub enum ParseError {
     IO(std::io::Error),
     Scan(yaml_rust::ScanError),
+    Tree(TreeError),
     Validation(String),
 }
 impl From<std::io::Error> for ParseError {
@@ -104,8 +106,9 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
         .key
         .clone();
 
-    tree.set_root(&root_node_key)?;
-    tree.reset()?;
+    // Safety : Root node guaranteed to exist, per above
+    tree.set_root(&root_node_key).unwrap();
+    tree.reset().unwrap();
 
     Ok(tree)
 }

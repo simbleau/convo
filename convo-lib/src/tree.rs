@@ -3,6 +3,12 @@ use std::collections::HashMap;
 use crate::{node::Node, parser::ParseError};
 
 #[derive(Debug)]
+pub enum TreeError {
+    NodeDNE(String),
+    Validation(String),
+}
+
+#[derive(Debug)]
 pub struct CTree {
     pub nodes: HashMap<String, Node>,
     root: Option<String>,
@@ -40,7 +46,7 @@ impl CTree {
         self.root.as_ref()
     }
 
-    pub fn set_root(&mut self, node_key: &str) -> Result<&mut Self, &'static str> {
+    pub fn set_root(&mut self, node_key: &str) -> Result<&mut Self, TreeError> {
         // Take ownership if necessary
         if self.root.is_some() {
             self.root.take();
@@ -48,7 +54,7 @@ impl CTree {
 
         // Check existence
         if !self.nodes.contains_key(node_key) {
-            return Err("TODO : Useful error message");
+            return Err(TreeError::NodeDNE(node_key.to_owned()));
         }
 
         self.root = Some(node_key.to_owned());
@@ -56,9 +62,9 @@ impl CTree {
     }
 
     // Reset the current node to root
-    pub fn reset(&mut self) -> Result<&mut Self, &'static str> {
+    pub fn reset(&mut self) -> Result<&mut Self, TreeError> {
         if self.root.is_none() {
-            return Err("Root is none");
+            return Err(TreeError::NodeDNE(String::from("Tree has no root node")));
         }
 
         // Take ownership if necessary
@@ -66,7 +72,7 @@ impl CTree {
             self.current.take();
         }
 
-        self.current = Some(self.root().unwrap().clone());
+        self.current = Some(self.root.as_ref().unwrap().clone());
         Ok(self)
     }
 }
