@@ -47,11 +47,6 @@ impl CTree {
     }
 
     pub fn set_root(&mut self, node_key: &str) -> Result<(), TreeError> {
-        // Take ownership if necessary
-        if self.root.is_some() {
-            self.root.take();
-        }
-
         // Check existence
         if !self.nodes.contains_key(node_key) {
             return Err(TreeError::NodeDNE(node_key.to_owned()));
@@ -65,11 +60,6 @@ impl CTree {
     pub fn reset(&mut self) -> Result<(), TreeError> {
         if self.root.is_none() {
             return Err(TreeError::NodeDNE(String::from("Tree has no root node")));
-        }
-
-        // Take ownership if necessary
-        if self.current.is_some() {
-            self.current.take();
         }
 
         self.current = Some(self.root.as_ref().unwrap().clone());
