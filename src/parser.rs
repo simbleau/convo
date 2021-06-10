@@ -1,6 +1,6 @@
 extern crate yaml_rust;
 
-use crate::tree::CTree;
+use crate::CTree;
 use convo_lib::{link::Link, node::Node};
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};

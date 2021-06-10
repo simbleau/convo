@@ -8,6 +8,6 @@ fn main() {
     println!("Selected file: {}", path.to_str().unwrap());
 
     println!("Parsing...");
-    let ctree = convo::parser::parse(path).unwrap();
+    let ctree = convo::parse(path).unwrap();
     println!("Completed.\n\n{:#?}", ctree);
 }
