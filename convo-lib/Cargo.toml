@@ -1,7 +1,7 @@
 [package]
 name = "convo-lib"
 version = "0.1.0"
-authors = ["Spencer Imbleau <spencer@imbleau.com>"]
+authors = ["Spencer Imbleau <spencer@imbleau.com>", "Thomas Houtart <thomas.houtart98@gmail.com>"]
 edition = "2018"
 
 [dependencies]
