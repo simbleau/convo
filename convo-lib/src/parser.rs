@@ -88,7 +88,7 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
         ));
     }
 
-    let mut tree = CTree::default();
+    let mut tree = CTree::new();
     node_map
         .iter()
         .flat_map(|(key, value)| yaml_to_node(key, value))
