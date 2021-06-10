@@ -4,10 +4,10 @@ use crate::node::Node;
 #[derive(Debug)]
 pub struct Link {
     // The key for the node this links to
-    to: String,
+    pub to: String,
 
     /// The dialogue of the link
-    dialogue: String,
+    pub dialogue: String,
 }
 
 impl Link {
@@ -43,25 +43,5 @@ impl Link {
             dialogue: dialogue.into(),
         };
         from.links.push(link);
-    }
-
-    // Immutable access to node
-    pub fn to(&self) -> &String {
-        &self.to
-    }
-
-    // Mutable access to node
-    pub fn to_mut(&mut self) -> &mut String {
-        &mut self.to
-    }
-
-    // Immutable access to link's dialogue
-    pub fn dialogue(&self) -> &str {
-        &self.dialogue
-    }
-
-    // Mutable access to link's dialogue
-    pub fn dialogue_mut(&mut self) -> &mut str {
-        &mut self.dialogue
     }
 }

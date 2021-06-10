@@ -29,13 +29,11 @@ fn test_print() {
     for (_, node) in &tree.nodes {
         println!("Node [{}]: '{}'", node.key, node.dialogue);
         for link in &node.links {
-            let linked_search = tree.nodes.get(link.to());
+            let linked_search = tree.nodes.get(&link.to);
             if let Some(link_node) = linked_search {
                 println!(
                     "Link [{}]->[{}]: '{}'",
-                    node.key,
-                    link_node.key,
-                    link.dialogue()
+                    node.key, link_node.key, link.dialogue
                 );
             }
         }

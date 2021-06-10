@@ -40,7 +40,7 @@ impl CTree {
         self.root.as_ref()
     }
 
-    pub fn set_root(&mut self, node_key: &str) -> Result<&CTree, &'static str> {
+    pub fn set_root(&mut self, node_key: &str) -> Result<&mut Self, &'static str> {
         // Take ownership if necessary
         if self.root.is_some() {
             self.root.take();
@@ -56,7 +56,7 @@ impl CTree {
     }
 
     // Reset the current node to root
-    pub fn reset(&mut self) -> Result<&CTree, &'static str> {
+    pub fn reset(&mut self) -> Result<&mut Self, &'static str> {
         if self.root.is_none() {
             return Err("Root is none");
         }
