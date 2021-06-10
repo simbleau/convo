@@ -38,14 +38,14 @@ pub fn parse<P>(path: P) -> Result<CTree, ParseError>
 where
     P: AsRef<Path>,
 {
-    let source = get_file_contents(path)?;
-    let convo_tree = get_ctree(source)?;
+    let source = get_file_source(path)?;
+    let convo_tree = source_to_ctree(&source)?;
 
     // Return the CTree
     Ok(convo_tree)
 }
 
-fn get_file_contents<P>(path: P) -> Result<String, ParseError>
+fn get_file_source<P>(path: P) -> Result<String, ParseError>
 where
     P: AsRef<Path>,
 {
@@ -57,9 +57,9 @@ where
     Ok(buf)
 }
 
-fn get_ctree(source: String) -> Result<CTree, ParseError> {
+pub(crate) fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
     // Parse the YAML
-    let docs = YamlLoader::load_from_str(&source)?;
+    let docs = YamlLoader::load_from_str(source)?;
     if docs.len() != 1 {
         return Err("Only one YAML document must be provided".into());
     }
@@ -93,18 +93,18 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
         .iter()
         .flat_map(|(key, value)| yaml_to_node(key, value))
         .for_each(|node| {
-            tree.nodes_mut().insert(node.key().clone(), node);
+            tree.nodes.insert(node.key.clone(), node);
         });
 
     // Set root and current
-    let root_key = tree
-        .nodes()
+    let root_node_key = tree
+        .nodes
         .get(root)
         .ok_or_else(|| format!("Root node DNE for {:?}", root))?
-        .key()
+        .key
         .clone();
 
-    tree.set_root_from_string(root_key)?;
+    tree.set_root(&root_node_key)?;
     tree.reset()?;
 
     Ok(tree)
@@ -134,7 +134,7 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
     if let Some(yaml_links) = data.get(&Yaml::from_str("links")) {
         // Unwrap links
         let links = yaml_to_links(yaml_links)?;
-        node.links_mut().extend(links);
+        &node.links.extend(links);
     };
 
     Ok(node)

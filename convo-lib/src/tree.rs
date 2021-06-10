@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-use crate::node::Node;
+use crate::{node::Node, parser::ParseError};
 
 #[derive(Debug)]
 pub struct CTree {
-    nodes: HashMap<String, Node>,
+    pub nodes: HashMap<String, Node>,
     root: Option<String>,
     current: Option<String>,
 }
@@ -26,8 +26,13 @@ impl CTree {
     }
 
     // Construct a dialogue tree
-    pub fn from(_source: &str, _root: &str) -> Result<CTree, &'static str> {
-        todo!("Not yet implemented");
+    pub fn try_from(source: &str, root: &str) -> Result<Self, ParseError> {
+        let mut tree = crate::parser::source_to_ctree(source)?;
+        if !tree.nodes.contains_key(root) {
+            return Err("TODO : Useful error message".into());
+        }
+        tree.root = Some(root.to_owned());
+        Ok(tree)
     }
 
     // Immutable access to root
@@ -35,28 +40,19 @@ impl CTree {
         self.root.as_ref()
     }
 
-    // Set the root
-    pub fn set_root_from_string<T>(&mut self, key: T) -> Result<&CTree, &'static str>
-    where
-        T: Into<String>,
-    {
+    pub fn set_root(&mut self, node_key: &str) -> Result<&CTree, &'static str> {
         // Take ownership if necessary
         if self.root.is_some() {
             self.root.take();
         }
 
         // Check existence
-        let root_key = key.into();
-        if !self.nodes.contains_key(&root_key) {
-            return Err("");
+        if !self.nodes.contains_key(node_key) {
+            return Err("TODO : Useful error message");
         }
 
-        self.root = Some(root_key);
+        self.root = Some(node_key.to_owned());
         Ok(self)
-    }
-
-    pub fn set_root_from_node(&mut self, key: &Node) -> Result<&CTree, &'static str> {
-        self.set_root_from_string(key.key())
     }
 
     // Reset the current node to root
@@ -72,15 +68,5 @@ impl CTree {
 
         self.current = Some(self.root().unwrap().clone());
         Ok(self)
-    }
-
-    // Immutable access to node
-    pub fn nodes(&self) -> &HashMap<String, Node> {
-        &self.nodes
-    }
-
-    // Mutable access to node
-    pub fn nodes_mut(&mut self) -> &mut HashMap<String, Node> {
-        &mut self.nodes
     }
 }

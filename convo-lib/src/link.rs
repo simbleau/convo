@@ -28,7 +28,7 @@ impl Link {
         T: Into<String>,
     {
         Link {
-            to: to.key().clone(),
+            to: to.key.clone(),
             dialogue: dialogue.into(),
         }
     }
@@ -39,10 +39,10 @@ impl Link {
         T: Into<String>,
     {
         let link = Link {
-            to: to.key().clone(),
+            to: to.key.clone(),
             dialogue: dialogue.into(),
         };
-        from.links_mut().push(link);
+        from.links.push(link);
     }
 
     // Immutable access to node
