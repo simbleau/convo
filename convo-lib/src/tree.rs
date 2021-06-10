@@ -46,6 +46,7 @@ impl CTree {
         self.root.as_ref()
     }
 
+    // Sets the root node to a new node defined by a key with node
     pub fn set_root(&mut self, node_key: &str) -> Result<(), TreeError> {
         // Check existence
         if !self.nodes.contains_key(node_key) {
@@ -56,13 +57,23 @@ impl CTree {
         Ok(())
     }
 
-    // Reset the current node to root
+    // Sets the root node to a new node defined by a key
+    pub unsafe fn set_root_unchecked(&mut self, node_key: &str) {
+        self.root = Some(node_key.to_owned());
+    }
+
+    // Reset the current node to root with root checking
     pub fn reset(&mut self) -> Result<(), TreeError> {
         if self.root.is_none() {
             return Err(TreeError::NodeDNE(String::from("Tree has no root node")));
         }
 
-        self.current = Some(self.root.as_ref().unwrap().clone());
+        self.current = self.root.clone();
         Ok(())
+    }
+
+    // Reset the current node to root
+    pub unsafe fn reset_unchecked(&mut self) {
+        self.current = self.root.clone();
     }
 }
