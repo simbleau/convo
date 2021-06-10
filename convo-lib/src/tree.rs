@@ -17,7 +17,7 @@ impl Default for CTree {
 
 impl CTree {
     // Provides a default empty CTree
-    fn new() -> Self {
+    pub fn new() -> Self {
         CTree {
             nodes: HashMap::<String, Node>::new(),
             root: None,
