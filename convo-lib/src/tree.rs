@@ -32,13 +32,8 @@ impl CTree {
     }
 
     // Construct a dialogue tree
-    pub fn try_from(source: &str, root: &str) -> Result<Self, ParseError> {
-        let mut tree = crate::parser::source_to_ctree(source)?;
-        if !tree.nodes.contains_key(root) {
-            return Err("TODO : Useful error message".into());
-        }
-        tree.root = Some(root.to_owned());
-        Ok(tree)
+    pub fn try_from(source: &str) -> Result<Self, ParseError> {
+        Ok(crate::parser::source_to_ctree(source)?)
     }
 
     // Immutable access to root
