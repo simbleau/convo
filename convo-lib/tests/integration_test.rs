@@ -12,7 +12,7 @@ fn test_print() {
     let node2 = Node::new("end", "Don't be late!");
 
     // Set node1 as root
-    tree.set_root(node1.key()).unwrap();
+    tree.set_root_from_node(&node1).unwrap();
 
     // Link node1 -> node 2
     Link::link(&mut node1, &node2, "Sorry, I'm in a hurry!");

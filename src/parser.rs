@@ -32,6 +32,17 @@ impl From<&str> for ParseError {
     }
 }
 
+pub fn parse<P>(path: P) -> Result<CTree, ParseError>
+where
+    P: AsRef<Path>,
+{
+    let source = get_file_contents(path)?;
+    let convo_tree = get_ctree(source)?;
+
+    // Return the CTree
+    Ok(convo_tree)
+}
+
 fn get_file_contents<P>(path: P) -> Result<String, ParseError>
 where
     P: AsRef<Path>,
@@ -84,13 +95,14 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
         });
 
     // Set root and current
-    let root_node = tree
+    let root_key = tree
         .nodes()
         .get(root)
         .ok_or_else(|| format!("Root node DNE for {:?}", root))?
         .key()
         .clone();
-    tree.set_root(root_node)?;
+
+    tree.set_root_from_string(root_key)?;
     tree.reset()?;
 
     Ok(tree)
@@ -151,15 +163,4 @@ fn yaml_to_links(yaml_links: &Yaml) -> Result<Vec<Link>, ParseError> {
     }
 
     Ok(link_buf)
-}
-
-pub fn parse<P>(path: P) -> Result<CTree, ParseError>
-where
-    P: AsRef<Path>,
-{
-    let source = get_file_contents(path)?;
-    let convo_tree = get_ctree(source)?;
-
-    // Return the CTree
-    Ok(convo_tree)
 }
