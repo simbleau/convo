@@ -8,5 +8,8 @@ edition = "2018"
 version = "*"
 path = "convo-lib"
 
+[dev-dependencies]
+text_io = "0.1.8"
+
 [workspace]
 members = ["convo-lib"]
