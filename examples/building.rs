@@ -22,7 +22,7 @@ fn main() {
     tree.set_root(root_key).unwrap();
 
     // Set the current node to the root node
-    tree.reset().unwrap();
+    tree.rewind().unwrap();
 
     // Print the data structure
     println!("\n{:#?}", tree);

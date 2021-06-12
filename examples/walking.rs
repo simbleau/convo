@@ -17,39 +17,35 @@ fn main() {
     println!("Starting...\nYou may enter 'Q' to quit anytime.\n");
 
     // Walk the structure
-    let mut current = ctree.root().unwrap();
+    let mut current = ctree.root_node().unwrap();
     'walk: loop {
-        let node = ctree.nodes.get(current).unwrap();
-
         // Print node dialogue
-        println!("{}", node.dialogue);
-        if node.links.len() == 0 {
+        println!("{}", current.dialogue);
+        if current.links.len() == 0 {
             break 'walk; // Dead end
         }
 
         // Print node links
-        for (id, link) in node.links.iter().enumerate() {
+        for (id, link) in current.links.iter().enumerate() {
             println!("[{}] {}", id, link.dialogue);
         }
+        print!(" > "); // User input prompt
+        io::stdout().flush().unwrap(); // Flush before input capture
 
         // Get user input
-        print!(" > ");
-        io::stdout().flush().unwrap();
         let line: String = read!("{}\n");
 
         // Handle user input
-        if line.eq_ignore_ascii_case("q") {
+        if line.trim().eq_ignore_ascii_case("q") {
             break 'walk;
         } else {
-            if let Ok(num) = line.parse::<usize>() {
-                if num < node.links.len() {
-                    current = &node.links.get(num).unwrap().to;
+            if let Ok(link_id) = line.parse::<usize>() {
+                if let Some(link) = current.links.get(link_id) {
+                    current = ctree.nodes.get(&link.to).unwrap();
                 }
             }
         }
     }
 
-    // Press any key to quit
-    println!("\nPress enter to quit.");
-    let _: String = read!();
+    println!("\nThe conversation has ended.");
 }

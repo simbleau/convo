@@ -41,6 +41,11 @@ impl CTree {
         self.root.as_ref()
     }
 
+    // Immutable access to root node
+    pub fn root_node(&self) -> Option<&Node> {
+        self.nodes.get(self.root.as_ref()?)
+    }
+
     // Sets the root node to a new node defined by a key with node
     pub fn set_root(&mut self, node_key: &str) -> Result<(), TreeError> {
         // Check existence
@@ -58,7 +63,7 @@ impl CTree {
     }
 
     // Reset the current node to root with root checking
-    pub fn reset(&mut self) -> Result<(), TreeError> {
+    pub fn rewind(&mut self) -> Result<(), TreeError> {
         if self.root.is_none() {
             return Err(TreeError::NodeDNE(String::from("Tree has no root node")));
         }
@@ -68,7 +73,7 @@ impl CTree {
     }
 
     // Reset the current node to root
-    pub unsafe fn reset_unchecked(&mut self) {
+    pub unsafe fn rewind_unchecked(&mut self) {
         self.current = self.root.clone();
     }
 }
