@@ -1,12 +1,12 @@
+<p align="center">
+    <img alt="Conversation Tree Example" height="300x" src="assets/Tree.svg">
+</p>
+
 # convo
 [![Crates.io](https://img.shields.io/crates/v/convo)](https://crates.io/crates/convo)
 [![Documentation](https://docs.rs/convo/badge.svg)](https://docs.rs/convo)
 [![Build Status](https://travis-ci.org/simbleau/convo.svg?branch=main)](https://travis-ci.com/simbleau/convo)
 [![Dependency Status](https://deps.rs/repo/github/simbleau/convo/status.svg)](https://deps.rs/repo/github/simbleau/convo)
-
-<p align="center">
-<img alt="Conversation Tree Example" width="75%" src="assets/Tree.svg">
-</p>
 
 A modern dialogue executor and tree parser using YAML.
 
