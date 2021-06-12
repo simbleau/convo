@@ -13,7 +13,7 @@
    height="603.31897"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="Tree.svg">
   <title
      id="title5374">Conversation Tree Example</title>
@@ -151,17 +151,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="527.94894"
-     inkscape:cy="309.73494"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="312.81346"
+     inkscape:cy="380.89282"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1599"
-     inkscape:window-height="953"
-     inkscape:window-x="171"
+     inkscape:window-width="1832"
+     inkscape:window-height="1016"
+     inkscape:window-x="88"
      inkscape:window-y="27"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -182,13 +182,13 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-   <rect 
-      id = "bg"
-      style="fill:rgba(255,255,255,0.4)"
-      x="0"
-      y="0"
-      width="1217.3967"
-      height="603.31897" />
+  <rect
+     id="bg"
+     style="fill:rgba(255,255,255,0.4)"
+     x="0"
+     y="0"
+     width="1217.3967"
+     height="603.31897" />
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
@@ -210,9 +210,9 @@
        d="M 420.22346,110.90001 659.62961,255.35182"
        id="path4330" />
     <rect
-       style="fill:#ffffff;stroke:none"
+       style="fill:#ffffff;stroke:none;stroke-width:1.06558287"
        id="rect5262-3-2-2-1"
-       width="287.89346"
+       width="326.89346"
        height="32.324883"
        x="444.9722"
        y="166.4584" />
@@ -248,18 +248,18 @@
        id="path4892"
        sodipodi:nodetypes="csssc" />
     <rect
-       style="fill:#ffffff;stroke:none"
+       style="fill:#ffffff;stroke:none;stroke-width:1.02372849"
        id="rect5262-3"
-       width="270.72089"
+       width="283.72089"
        height="63.63961"
        x="401.03055"
        y="393.23764" />
     <rect
-       style="fill:#ffffff;stroke:none"
+       style="fill:#ffffff;stroke:none;stroke-width:1.06228828"
        id="rect5262"
-       width="270.72089"
+       width="305.49661"
        height="63.63961"
-       x="711.1474"
+       x="711.02112"
        y="393.74274" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.84873295;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -270,18 +270,20 @@
        y="28.225994" />
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="247.48738"
        y="60.392376"
        id="text2818"><tspan
          sodipodi:role="line"
          id="tspan2820"
          x="247.48738"
-         y="60.392376">You don't look like you're</tspan><tspan
+         y="60.392376"
+         style="font-size:24px;line-height:1.25">You don't look like you're</tspan><tspan
          sodipodi:role="line"
          x="247.48738"
          y="90.39238"
-         id="tspan2822">from around here.</tspan></text>
+         id="tspan2822"
+         style="font-size:24px;line-height:1.25">from around here.</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.78381872;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2816-1"
@@ -291,7 +293,7 @@
        y="257.75171" />
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="66.670074"
        y="191.71222"
        id="text3634"><tspan
@@ -299,10 +301,10 @@
          id="tspan3636"
          x="66.670074"
          y="191.71222"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">I've lived here all my life!</tspan></text>
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'">I've lived here all my life!</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="452.54834"
        y="190.70206"
        id="text3638"><tspan
@@ -310,10 +312,10 @@
          id="tspan3640"
          x="452.54834"
          y="190.70206"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">I came here from Newton.</tspan></text>
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'">I came here from Newton.</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="25.253817"
        y="289.69702"
        id="text3642"><tspan
@@ -321,11 +323,11 @@
          id="tspan3644"
          x="25.253817"
          y="289.69702"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">Oh really? Then you must</tspan><tspan
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'">Oh really? Then you must</tspan><tspan
          sodipodi:role="line"
          x="25.253817"
          y="319.69702"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3646">know Mr. Bowler.</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.94329524;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -336,23 +338,23 @@
        y="256.82132" />
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="523.25903"
        y="288.68689"
        id="text3642-4"><tspan
          sodipodi:role="line"
          x="523.25903"
          y="288.68689"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3646-9">Newton, eh? I heard there's</tspan><tspan
          sodipodi:role="line"
          x="523.25903"
          y="318.68689"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3681">trouble brewing down there.</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="-68.915848"
        y="424.19733"
        id="text3634-4"><tspan
@@ -360,15 +362,15 @@
          id="tspan3636-8"
          x="-68.915848"
          y="424.19733"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">Mr. Bowler is a good</tspan><tspan
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'">Mr. Bowler is a good</tspan><tspan
          sodipodi:role="line"
          x="-68.915848"
          y="454.19733"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3708">friend of mine!</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="252.31265"
        y="435.30899"
        id="text3634-8"><tspan
@@ -376,7 +378,7 @@
          id="tspan3636-2"
          x="252.31265"
          y="435.30899"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">Who?</tspan></text>
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'">Who?</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:3.56134439;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2816-1-4"
@@ -386,40 +388,40 @@
        y="517.74963" />
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="254.55844"
        y="549.30621"
        id="text3642-5"><tspan
          sodipodi:role="line"
          x="254.55844"
          y="549.30621"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3646-1">Don't you worry about it. Say,</tspan><tspan
          sodipodi:role="line"
          x="254.55844"
          y="579.30621"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3772">do you have something to eat?</tspan><tspan
          sodipodi:role="line"
          x="254.55844"
          y="609.30621"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3770">I'm starving.</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="415.57776"
        y="418.50668"
        id="text3634-4-7"><tspan
          sodipodi:role="line"
          x="415.57776"
          y="418.50668"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3708-1">I haven't heard about</tspan><tspan
          sodipodi:role="line"
          x="415.57776"
          y="448.50668"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3811">any trouble.</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:3.3350563;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -430,35 +432,35 @@
        y="519.65686" />
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="-191.92897"
        y="564.4585"
        id="text3642-2"><tspan
          sodipodi:role="line"
          x="-191.92897"
          y="564.4585"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3646-6">You liar! There ain't no</tspan><tspan
          sodipodi:role="line"
          x="-191.92897"
          y="594.4585"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3846">Mr. Bowler, I made him up!</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#000000;fill-opacity:1;stroke:none"
        x="718.57428"
        y="420.16254"
        id="text3634-4-7-1"><tspan
          sodipodi:role="line"
          x="718.57428"
          y="420.16254"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3811-2">Did I say Newton? I'm</tspan><tspan
          sodipodi:role="line"
          x="718.57428"
          y="450.16254"
-         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         style="font-size:24px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'"
          id="tspan3878">actually from Springville.</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
