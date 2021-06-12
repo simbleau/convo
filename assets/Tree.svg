@@ -14,10 +14,9 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="Tree.svg"
-   style="background-color:rgba(255,255,255,0.3)">
+   sodipodi:docname="Tree.svg">
   <title
-     id="title5374">Convo Tree Example</title>
+     id="title5374">Conversation Tree Example</title>
   <defs
      id="defs4">
     <marker
@@ -171,11 +170,11 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Dialog tree example</dc:title>
-        <dc:date>2010 November 16</dc:date>
+        <dc:title>Conversation Tree Example</dc:title>
+        <dc:date>2021 June 12</dc:date>
         <dc:creator>
           <cc:Agent>
-            <dc:title>Derrick Coetzee</dc:title>
+            <dc:title>Derrick Coetzee, Spencer C. Imbleau</dc:title>
           </cc:Agent>
         </dc:creator>
         <cc:license
@@ -183,6 +182,13 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+   <rect 
+      id = "bg"
+      style="fill:rgba(255,255,255,0.4)"
+      x="0"
+      y="0"
+      width="1217.3967"
+      height="603.31897" />
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
