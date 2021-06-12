@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1217.3967"
+   height="603.31897"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="Dialog_tree_example.svg">
+  <title
+     id="title5374">Dialog tree example</title>
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path3692"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path3888"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective3620"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3656"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3691"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3718"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3743"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3789"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3821"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3856"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5272"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5294"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5316"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5338"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5360"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="527.94894"
+     inkscape:cy="309.73494"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1599"
+     inkscape:window-height="953"
+     inkscape:window-x="171"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Dialog tree example</dc:title>
+        <dc:date>2010 November 16</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Derrick Coetzee</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="Creative Commons Zero Waive" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(200.86153,-26.801628)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.32576799;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 190.07156,342.38782 381.67477,515.8083"
+       id="path4704" />
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect5262-3-6"
+       width="74.751289"
+       height="33.335033"
+       x="246.47723"
+       y="409.40009" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 420.22346,110.90001 659.62961,255.35182"
+       id="path4330" />
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect5262-3-2-2-1"
+       width="287.89346"
+       height="32.324883"
+       x="444.9722"
+       y="166.4584" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.12964272;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 386.8736,109.90468 161.63923,254.32685"
+       id="path3880" />
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect5262-3-2-2"
+       width="314.15744"
+       height="32.324883"
+       x="61.619305"
+       y="165.95331" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.93547726;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 119.23026,341.18253 -54.580498,518.02375"
+       id="path4518" />
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect5262-3-2"
+       width="270.72089"
+       height="63.63961"
+       x="-85.862953"
+       y="399.29855" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="M 628.31488,338.18433 456.58895,515.97118"
+       id="path4890" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.91300000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none"
+       d="m 727.02342,339.17082 c 0,0 123.74446,7.07372 125.59139,87.91641 1.84693,80.84267 -97.8874,116.21134 -181.92281,70.73734 -84.03541,-45.47401 -185.02602,-159.74065 -246.56544,-190.99083 -18.5862,-9.43821 -65.56609,-10.10533 -65.56609,-10.10533"
+       id="path4892"
+       sodipodi:nodetypes="csssc" />
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect5262-3"
+       width="270.72089"
+       height="63.63961"
+       x="401.03055"
+       y="393.23764" />
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect5262"
+       width="270.72089"
+       height="63.63961"
+       x="711.1474"
+       y="393.74274" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.84873295;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2816"
+       width="351.39716"
+       height="82.008415"
+       x="233.8138"
+       y="28.225994" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="247.48738"
+       y="60.392376"
+       id="text2818"><tspan
+         sodipodi:role="line"
+         id="tspan2820"
+         x="247.48738"
+         y="60.392376">You don't look like you're</tspan><tspan
+         sodipodi:role="line"
+         x="247.48738"
+         y="90.39238"
+         id="tspan2822">from around here.</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.78381872;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2816-1"
+       width="335.29962"
+       height="82.073326"
+       x="17.713175"
+       y="257.75171" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="66.670074"
+       y="191.71222"
+       id="text3634"><tspan
+         sodipodi:role="line"
+         id="tspan3636"
+         x="66.670074"
+         y="191.71222"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">I've lived here all my life!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="452.54834"
+       y="190.70206"
+       id="text3638"><tspan
+         sodipodi:role="line"
+         id="tspan3640"
+         x="452.54834"
+         y="190.70206"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">I came here from Newton.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="25.253817"
+       y="289.69702"
+       id="text3642"><tspan
+         sodipodi:role="line"
+         id="tspan3644"
+         x="25.253817"
+         y="289.69702"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">Oh really? Then you must</tspan><tspan
+         sodipodi:role="line"
+         x="25.253817"
+         y="319.69702"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3646">know Mr. Bowler.</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.94329524;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2816-1-7"
+       width="375.54626"
+       height="81.913849"
+       x="513.77783"
+       y="256.82132" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="523.25903"
+       y="288.68689"
+       id="text3642-4"><tspan
+         sodipodi:role="line"
+         x="523.25903"
+         y="288.68689"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3646-9">Newton, eh? I heard there's</tspan><tspan
+         sodipodi:role="line"
+         x="523.25903"
+         y="318.68689"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3681">trouble brewing down there.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="-68.915848"
+       y="424.19733"
+       id="text3634-4"><tspan
+         sodipodi:role="line"
+         id="tspan3636-8"
+         x="-68.915848"
+         y="424.19733"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">Mr. Bowler is a good</tspan><tspan
+         sodipodi:role="line"
+         x="-68.915848"
+         y="454.19733"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3708">friend of mine!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="252.31265"
+       y="435.30899"
+       id="text3634-8"><tspan
+         sodipodi:role="line"
+         id="tspan3636-2"
+         x="252.31265"
+         y="435.30899"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">Who?</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:3.56134439;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2816-1-4"
+       width="407.25308"
+       height="110.59023"
+       x="245.38629"
+       y="517.74963" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="254.55844"
+       y="549.30621"
+       id="text3642-5"><tspan
+         sodipodi:role="line"
+         x="254.55844"
+         y="549.30621"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3646-1">Don't you worry about it. Say,</tspan><tspan
+         sodipodi:role="line"
+         x="254.55844"
+         y="579.30621"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3772">do you have something to eat?</tspan><tspan
+         sodipodi:role="line"
+         x="254.55844"
+         y="609.30621"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3770">I'm starving.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="415.57776"
+       y="418.50668"
+       id="text3634-4-7"><tspan
+         sodipodi:role="line"
+         x="415.57776"
+         y="418.50668"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3708-1">I haven't heard about</tspan><tspan
+         sodipodi:role="line"
+         x="415.57776"
+         y="448.50668"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3811">any trouble.</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:3.3350563;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2816-1-5"
+       width="363.03265"
+       height="108.7962"
+       x="-199.194"
+       y="519.65686" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="-191.92897"
+       y="564.4585"
+       id="text3642-2"><tspan
+         sodipodi:role="line"
+         x="-191.92897"
+         y="564.4585"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3646-6">You liar! There ain't no</tspan><tspan
+         sodipodi:role="line"
+         x="-191.92897"
+         y="594.4585"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3846">Mr. Bowler, I made him up!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="718.57428"
+       y="420.16254"
+       id="text3634-4-7-1"><tspan
+         sodipodi:role="line"
+         x="718.57428"
+         y="420.16254"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3811-2">Did I say Newton? I'm</tspan><tspan
+         sodipodi:role="line"
+         x="718.57428"
+         y="450.16254"
+         style="font-size:24px;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+         id="tspan3878">actually from Springville.</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       d="m 605.08138,274.00924 -48.48733,-5.05076"
+       id="path4304"
+       transform="translate(-200.86153,26.801628)" />
+  </g>
+</svg>
