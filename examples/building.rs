@@ -12,7 +12,7 @@ fn main() {
     let node2 = Node::new("end", "I am the last node!");
 
     // Link node1 -> node 2
-    Link::link(&mut node1, &node2, "I map start to end!");
+    Link::link(&mut node1, &node2, "I link start to end!");
 
     // Populate the tree
     tree.nodes.insert(node1.key.clone(), node1);
