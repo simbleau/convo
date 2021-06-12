@@ -1,6 +1,10 @@
 #[macro_use]
 extern crate text_io;
-use std::path::Path;
+use std::{
+    io::{self, Write},
+    path::Path,
+    process,
+};
 
 fn main() {
     // Select CTree file path
@@ -29,6 +33,10 @@ fn main() {
             println!("[{}] {}", id, link.dialogue);
         }
 
+        // Signal user for input
+        print!(" > ");
+        io::stdout().flush().unwrap();
+
         // Handle user input
         let line: String = read!("{}\n");
         if line.eq_ignore_ascii_case("q") {
@@ -41,4 +49,8 @@ fn main() {
             }
         }
     }
+
+    // Press any key to quit
+    println!("\nPress enter to quit.");
+    let _: String = read!();
 }
