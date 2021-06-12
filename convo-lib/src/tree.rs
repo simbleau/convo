@@ -92,7 +92,7 @@ impl CTree {
         self.current = Some(node_key.to_owned());
     }
 
-    // Reset the current node to root with root checking
+    // Rewind the current node to root with safety
     pub fn rewind(&mut self) -> Result<(), TreeError> {
         if self.root.is_none() {
             return Err(TreeError::NodeDNE(String::from("Tree has no root node")));
