@@ -106,6 +106,13 @@ impl CTree {
     pub unsafe fn rewind_unchecked(&mut self) {
         self.current = self.root.clone();
     }
+
+    // Reset the tree to brand new
+    pub fn reset(&mut self) {
+        self.nodes.clear();
+        self.root = None;
+        self.current = None;
+    }
 }
 
 #[cfg(test)]
