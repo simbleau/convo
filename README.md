@@ -1,4 +1,4 @@
-<img align="right" alt="Conversation Tree Example" width="50%" src="assets/Tree_example.svg">
+<img style="background-color:rgba(255,255,255,0.3);" align="right" alt="Conversation Tree Example" width="50%" src="assets/Tree_example.svg" >
 
 # convo
 [![Crates.io](https://img.shields.io/crates/v/convo)](https://crates.io/crates/convo)
