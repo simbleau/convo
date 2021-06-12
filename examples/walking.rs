@@ -32,12 +32,12 @@ fn main() {
             println!("[{}] {}", id, link.dialogue);
         }
 
-        // Signal user for input
+        // Get user input
         print!(" > ");
         io::stdout().flush().unwrap();
+        let line: String = read!("{}\n");
 
         // Handle user input
-        let line: String = read!("{}\n");
         if line.eq_ignore_ascii_case("q") {
             break 'walk;
         } else {
