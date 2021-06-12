@@ -3,7 +3,6 @@ extern crate text_io;
 use std::{
     io::{self, Write},
     path::Path,
-    process,
 };
 
 fn main() {
