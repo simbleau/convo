@@ -4,7 +4,9 @@
 [![Build Status](https://travis-ci.org/simbleau/convo.svg?branch=main)](https://travis-ci.com/simbleau/convo)
 [![Dependency Status](https://deps.rs/repo/github/simbleau/convo/status.svg)](https://deps.rs/repo/github/simbleau/convo)
 
-<img style="background-color:rgba(255,255,255,0.4);" align="center" alt="Conversation Tree Example" width="80%" src="assets/Tree.svg">
+<p align="center">
+<img alt="Conversation Tree Example" width="75%" src="assets/Tree.svg">
+</p>
 
 A modern dialogue executor and tree parser using YAML.
 
