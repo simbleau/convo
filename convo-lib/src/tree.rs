@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{node::Node, parser::ParseError};
+use crate::{link::Link, node::Node, parser::ParseError};
 
 #[derive(Debug)]
 pub enum TreeError {
@@ -90,6 +90,11 @@ impl CTree {
     // Sets the current node to a new node defined by a key
     pub unsafe fn set_current_unchecked(&mut self, node_key: &str) {
         self.current = Some(node_key.to_owned());
+    }
+
+    // Advance the current node using a link
+    pub fn advance(&mut self, link: &Link) -> Result<(), TreeError> {
+        Ok(self.set_current(&link.to)?)
     }
 
     // Rewind the current node to root with safety
