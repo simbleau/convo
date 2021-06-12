@@ -79,8 +79,7 @@ fn test_try_from() {
     let bad_source = "not valid source";
     assert!(CTree::try_from(bad_source).is_err());
 
-    let mut good_file =
-        std::fs::File::open("../examples/dialogue_files/example.ctree.yml").unwrap();
+    let mut good_file = std::fs::File::open("../examples/dialogue_files/ex_min.ctree.yml").unwrap();
     let mut good_source = String::new();
     std::io::Read::read_to_string(&mut good_file, &mut good_source).unwrap();
 
