@@ -1,0 +1,28 @@
+--- 
+root: start
+
+nodes: 
+
+  start:
+    dialogue: "You don't look like you're from around here."
+    links:
+      - bowler: "I've lived here all my life!"
+        newton: "I came here from Newton."
+  
+  bowler:
+    dialogue: "Oh really? Then you must know Mr. Bowler."
+    links: 
+      - lie: "Mr. Bowler is a good friend of mine!"
+        end: "Who?"
+
+  newton:
+    dialogue: "Newton, eh? I heard there's trouble brewing down there."
+    links: 
+      - lie: "I haven't heard about any trouble."
+        bowler: "Did I say Newton? I'm actually from Springville"
+
+  lie:
+    dialogue: "You liar! There ain't no Mr. Bowler, I made him up!"
+
+  end:
+    dialogue: "Don't you worry about it. Say, do you have something to eat? I'm starving."
