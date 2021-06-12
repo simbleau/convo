@@ -5,7 +5,7 @@ fn main() {
     let mut tree = CTree::new();
 
     // Declare the root key
-    let root_key = "root";
+    let root_key = "start";
 
     // Create some nodes
     let mut node1 = Node::new(root_key, "I am the root node!");
@@ -18,11 +18,8 @@ fn main() {
     tree.nodes.insert(node1.key.clone(), node1);
     tree.nodes.insert(node2.key.clone(), node2);
 
-    // Set the root
+    // Set the root node (which also sets current to root if current is None)
     tree.set_root(root_key).unwrap();
-
-    // Set the current node to the root node
-    tree.rewind().unwrap();
 
     // Print the data structure
     println!("\n{:#?}", tree);

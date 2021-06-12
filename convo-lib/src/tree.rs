@@ -46,7 +46,8 @@ impl CTree {
         self.nodes.get(self.root.as_ref()?)
     }
 
-    // Sets the root node to a new node defined by a key with node
+    // Sets the root node to a new node defined by a key
+    // Also sets current to root node if current is None
     pub fn set_root(&mut self, node_key: &str) -> Result<(), TreeError> {
         // Check existence
         if !self.nodes.contains_key(node_key) {
@@ -54,12 +55,41 @@ impl CTree {
         }
 
         self.root = Some(node_key.to_owned());
+        if self.current.is_none() {
+            self.current = Some(node_key.to_owned());
+        }
         Ok(())
     }
 
     // Sets the root node to a new node defined by a key
     pub unsafe fn set_root_unchecked(&mut self, node_key: &str) {
         self.root = Some(node_key.to_owned());
+    }
+
+    // Immutable access to current
+    pub fn current(&self) -> Option<&String> {
+        self.current.as_ref()
+    }
+
+    // Immutable access to current node
+    pub fn current_node(&self) -> Option<&Node> {
+        self.nodes.get(self.current.as_ref()?)
+    }
+
+    // Sets the current node to a new node defined by a key
+    pub fn set_current(&mut self, node_key: &str) -> Result<(), TreeError> {
+        // Check existence
+        if !self.nodes.contains_key(node_key) {
+            return Err(TreeError::NodeDNE(node_key.to_owned()));
+        }
+
+        self.current = Some(node_key.to_owned());
+        Ok(())
+    }
+
+    // Sets the current node to a new node defined by a key
+    pub unsafe fn set_current_unchecked(&mut self, node_key: &str) {
+        self.current = Some(node_key.to_owned());
     }
 
     // Reset the current node to root with root checking
