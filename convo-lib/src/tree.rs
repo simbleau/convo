@@ -8,7 +8,7 @@ pub enum TreeError {
     Validation(String),
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct CTree {
     pub nodes: HashMap<String, Node>,
     root: Option<String>,
