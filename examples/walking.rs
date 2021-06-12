@@ -4,7 +4,7 @@ use std::path::Path;
 
 fn main() {
     // Select CTree file path
-    let path = Path::new("examples/dialogue_files/ex_min.ctree.yml");
+    let path = Path::new("examples/dialogue_files/ex_1.ctree.yml");
     println!("Selected file: {}", path.to_str().unwrap());
 
     //Parse path to CTree
