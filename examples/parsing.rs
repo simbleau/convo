@@ -1,16 +1,15 @@
-use std::{env, path::Path};
+use std::path::Path;
 
 fn main() {
-    let args: Vec<_> = env::args().collect();
-
-    let path = match args.len() {
-        2 => Path::new(&args[1]),
-        1 => Path::new("examples/dialogue_files/example.ctree.yml"), // Default example
-        _ => panic!("You must specify only one file."),
-    };
+    // Select CTree file path
+    let path = Path::new("examples/dialogue_files/ex_min.ctree.yml");
     println!("Selected file: {}", path.to_str().unwrap());
 
-    println!("Parsing...");
-    let ctree = convo::parse(path).unwrap();
-    println!("Completed.\n\n{:#?}", ctree);
+    //Parse path to CTree
+    print!("Parsing...");
+    let tree = convo::parse(path).unwrap();
+    println!("Complete.");
+
+    // Print the data structure
+    println!("\n{:#?}", tree);
 }
