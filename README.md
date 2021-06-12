@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Conversation Tree Example" height="300x" src="assets/Tree.svg?v2">
+    <img alt="Conversation Tree Example" height="300x" src="assets/Tree.svg">
 </p>
 
 # convo
