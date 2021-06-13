@@ -92,11 +92,6 @@ impl CTree {
         self.current = Some(node_key.to_owned());
     }
 
-    // Advance the current node using a link
-    pub fn advance(&mut self, link: &Link) -> Result<(), TreeError> {
-        Ok(self.set_current(&link.to)?)
-    }
-
     // Rewind the current node to root with safety
     pub fn rewind(&mut self) -> Result<(), TreeError> {
         if self.root.is_none() {

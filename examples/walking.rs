@@ -12,16 +12,17 @@ fn main() {
 
     //Parse path to CTree
     print!("Parsing...");
-    let ctree = convo::parse(path).unwrap();
+    let mut ctree = convo::parse(path).unwrap();
     println!("Complete.");
     println!("Starting...\nYou may enter 'Q' to quit anytime.\n");
 
     // Walk the structure
-    let mut current = ctree.root_node().unwrap();
-    'walk: loop {
+    'walk: while let Some(current) = ctree.current_node() {
         // Print node dialogue
         println!("{}", current.dialogue);
-        if current.links.len() == 0 {
+
+        // End if there's no links to choose
+        if current.links.is_empty() {
             break 'walk; // Dead end
         }
 
@@ -29,19 +30,20 @@ fn main() {
         for (id, link) in current.links.iter().enumerate() {
             println!("[{}] {}", id, link.dialogue);
         }
-        print!(" > "); // User input prompt
-        io::stdout().flush().unwrap(); // Flush before input capture
 
         // Get user input
-        let line: String = read!("{}\n");
+        print!(" > "); // User input prompt
+        io::stdout().flush().unwrap(); // Flush before input capture
+        let line: String = read!("{}\n"); // Capture
 
         // Handle user input
         if line.trim().eq_ignore_ascii_case("q") {
-            break 'walk;
+            break 'walk; // User quit
         } else {
             if let Ok(link_id) = line.parse::<usize>() {
                 if let Some(link) = current.links.get(link_id) {
-                    current = ctree.nodes.get(&link.to).unwrap();
+                    let link_key = link.to.clone();
+                    ctree.set_current(&link_key).unwrap();
                 }
             }
         }
