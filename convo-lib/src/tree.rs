@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, path::Path};
 
 use crate::{node::Node, parser::ParseError};
 
@@ -34,6 +34,14 @@ impl CTree {
     // Construct a dialogue tree
     pub fn try_from(source: &str) -> Result<Self, ParseError> {
         Ok(crate::parser::source_to_ctree(source)?)
+    }
+
+    // Export a dialogue tree
+    pub fn try_export<P>(_path: P) -> Result<Self, std::io::Error>
+    where
+        P: AsRef<Path>,
+    {
+        todo!("Not yet implemented!");
     }
 
     // Immutable access to root
