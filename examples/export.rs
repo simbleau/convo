@@ -12,5 +12,5 @@ pub fn main() {
     tree.set_root("start").unwrap();
 
     // Export the tree to a file
-    CTree::try_export("examples/dialogue_files/ex_export.ctree.yml").unwrap();
+    CTree::try_export(&tree, "examples/dialogue_files/ex_export.ctree.yml").unwrap();
 }

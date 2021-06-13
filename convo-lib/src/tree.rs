@@ -1,9 +1,15 @@
 use std::{collections::HashMap, path::Path};
 
-use crate::{node::Node, parser::ParseError};
+use crate::{
+    exporter::{self, ExportError},
+    node::Node,
+    parser::ParseError,
+};
 
 #[derive(Debug)]
 pub enum TreeError {
+    RootNotSet(),
+    CurrentNotSet(),
     NodeDNE(String),
     Validation(String),
 }
@@ -37,11 +43,11 @@ impl CTree {
     }
 
     // Export a dialogue tree
-    pub fn try_export<P>(_path: P) -> Result<Self, std::io::Error>
+    pub fn try_export<P>(tree: &CTree, path: P) -> Result<(), ExportError>
     where
         P: AsRef<Path>,
     {
-        todo!("Not yet implemented!");
+        Ok(exporter::export(tree, path)?)
     }
 
     // Immutable access to root
@@ -103,7 +109,7 @@ impl CTree {
     // Rewind the current node to root with safety
     pub fn rewind(&mut self) -> Result<(), TreeError> {
         if self.root.is_none() {
-            return Err(TreeError::NodeDNE(String::from("Tree has no root node")));
+            return Err(TreeError::RootNotSet());
         }
 
         self.current = self.root.clone();
@@ -129,9 +135,16 @@ fn test_try_from() {
     let bad_source = "not valid source";
     assert!(CTree::try_from(bad_source).is_err());
 
-    let mut good_file = std::fs::File::open("../examples/dialogue_files/ex_min.ctree.yml").unwrap();
+    let mut good_file = std::fs::File::open("../examples/dialogue_files/ex_1.ctree.yml").unwrap();
     let mut good_source = String::new();
     std::io::Read::read_to_string(&mut good_file, &mut good_source).unwrap();
 
     assert!(CTree::try_from(&good_source).is_ok());
+}
+
+#[test]
+fn test_try_export() {
+    let tree = crate::parser::parse("../examples/dialogue_files/ex_1.ctree.yml").unwrap();
+    let source = crate::exporter::ctree_to_source(&tree).unwrap();
+    println!("{}", source);
 }
