@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{link::Link, node::Node, parser::ParseError};
+use crate::{node::Node, parser::ParseError};
 
 #[derive(Debug)]
 pub enum TreeError {
