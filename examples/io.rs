@@ -1,7 +1,7 @@
 use std::path::Path;
 
-fn main() {
-    // Select CTree file path
+pub fn main() {
+    // Importing a tree file
     let path = Path::new("examples/dialogue_files/ex_min.ctree.yml");
     println!("Selected file: {}", path.to_str().unwrap());
 
@@ -11,5 +11,11 @@ fn main() {
     println!("Complete.");
 
     // Print the data structure
-    println!("\n{:#?}", tree);
+    println!("\n{:#?}\n", tree);
+
+    // Export the tree to a new file
+    print!("Exporting...");
+    tree.try_export("examples/dialogue_files/ex_export.ctree.yml")
+        .unwrap();
+    println!("Complete.");
 }
