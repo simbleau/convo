@@ -38,6 +38,7 @@ pub fn ctree_to_source(tree: &CTree) -> Result<String, TreeError> {
     // Convert to source text
     let mut writer = String::new();
     let mut emitter = YamlEmitter::new(&mut writer);
+    emitter.compact(true);
     emitter
         .dump(&yaml)
         .map_err(|_err| TreeError::Validation("YAML Dump error".to_string()))?;
