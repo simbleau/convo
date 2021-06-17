@@ -2,11 +2,6 @@ use convo::CTree;
 use convo_lib::{link::Link, node::Node};
 
 fn main() {
-    // Print the data structure
-    println!("\n{:#?}", example_tree());
-}
-
-pub(crate) fn example_tree() -> CTree {
     // Make a new tree
     let mut tree = CTree::new();
 
@@ -27,6 +22,6 @@ pub(crate) fn example_tree() -> CTree {
     // Set the root node (which also sets current to root since current is not set)
     tree.set_root(root_key).unwrap();
 
-    // Return the completed tree
-    tree
+    // Print the data structure
+    println!("\n{:#?}", tree);
 }
