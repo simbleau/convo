@@ -43,11 +43,11 @@ impl CTree {
     }
 
     // Export a dialogue tree
-    pub fn try_export<P>(tree: &CTree, path: P) -> Result<(), ExportError>
+    pub fn try_export<P>(&self, path: P) -> Result<(), ExportError>
     where
         P: AsRef<Path>,
     {
-        Ok(exporter::export(tree, path)?)
+        Ok(exporter::export(self, path)?)
     }
 
     // Immutable access to root
