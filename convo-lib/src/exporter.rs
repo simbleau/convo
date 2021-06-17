@@ -45,7 +45,7 @@ pub fn ctree_to_source(tree: &CTree) -> Result<String, TreeError> {
     Ok(writer)
 }
 
-pub fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
+fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
     let root_key = tree.root().ok_or_else(|| TreeError::RootNotSet())?;
 
     // Check length of nodes
