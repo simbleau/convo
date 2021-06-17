@@ -1,7 +1,7 @@
 use crate::node::Node;
 
 /// A mapping to a node.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Link {
     // The key for the node this links to
     pub to: String,

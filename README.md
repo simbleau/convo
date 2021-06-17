@@ -1,3 +1,7 @@
+<p align="center">
+    <img alt="Conversation Tree Example" height="300x" src="assets/Tree.svg">
+</p>
+
 # convo
 [![Crates.io](https://img.shields.io/crates/v/convo)](https://crates.io/crates/convo)
 [![Documentation](https://docs.rs/convo/badge.svg)](https://docs.rs/convo)

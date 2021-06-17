@@ -2,7 +2,7 @@ use crate::link::Link;
 
 // A conversation node
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Node {
     /// The key of this node; must be unique
     pub key: String,

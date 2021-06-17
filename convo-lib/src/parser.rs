@@ -59,7 +59,7 @@ where
     Ok(buf)
 }
 
-pub(crate) fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
+pub fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
     // Parse the YAML
     let docs = YamlLoader::load_from_str(source)?;
     if docs.len() != 1 {
@@ -109,7 +109,7 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
     // Safety : Sound code - root node guaranteed to exist, per above
     unsafe {
         tree.set_root_unchecked(&root_key);
-        tree.reset_unchecked();
+        tree.set_current_unchecked(&root_key);
     }
 
     Ok(tree)
@@ -146,27 +146,31 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
 }
 
 fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
-    // Unwrap link hashmap
+    // Unwrap link array
     let links = yaml
         .as_vec()
-        .ok_or_else(|| format!("Links not an array for '{:?}'", yaml))?
-        .first()
-        .ok_or_else(|| format!("Links empty for '{:?}'", yaml))?
-        .as_hash()
-        .ok_or_else(|| format!("Links not a hash for '{:?}'", yaml))?
-        .iter();
+        .ok_or_else(|| format!("Links not an array for '{:?}'", yaml))?;
+
+    if links.len() == 0 {
+        return Err(format!("Links empty for '{:?}'", yaml).into());
+    }
 
     // Collect links
     let mut link_buf = Vec::<Link>::new();
-    for (yaml_to, yaml_dialogue) in links {
-        let to = yaml_to
-            .as_str()
-            .ok_or_else(|| format!("Link name missing for '{:?}'", yaml))?;
-        let dialogue = yaml_dialogue
-            .as_str()
-            .ok_or_else(|| format!("Links dialogue missing for '{:?}'", to))?;
-        let link = Link::new(to, dialogue);
-        link_buf.push(link);
+    for yaml_link in links {
+        let yaml_link_hash = yaml_link
+            .as_hash()
+            .ok_or_else(|| format!("Links not a hash for '{:?}'", yaml))?;
+        for (yaml_to, yaml_dialogue) in yaml_link_hash {
+            let to = yaml_to
+                .as_str()
+                .ok_or_else(|| format!("Link name missing for '{:?}'", yaml))?;
+            let dialogue = yaml_dialogue
+                .as_str()
+                .ok_or_else(|| format!("Links dialogue missing for '{:?}'", to))?;
+            let link = Link::new(to, dialogue);
+            link_buf.push(link);
+        }
     }
 
     Ok(link_buf)
