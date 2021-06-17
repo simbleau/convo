@@ -5,6 +5,8 @@ use std::{
     path::Path,
 };
 
+use convo::CTree;
+
 fn main() {
     // Select CTree file path
     let path = Path::new("examples/dialogue_files/ex_1.ctree.yml");
@@ -12,10 +14,15 @@ fn main() {
 
     //Parse path to CTree
     print!("Parsing...");
-    let mut ctree = convo::parse(path).unwrap();
+    let ctree = convo::parser::parse(path).unwrap();
     println!("Complete.");
     println!("Starting...\nYou may enter 'Q' to quit anytime.\n");
 
+    // Walk the CTree
+    walk(ctree);
+}
+
+pub(crate) fn walk(mut ctree: CTree) {
     // Walk the structure
     'walk: while let Some(current) = ctree.current_node() {
         // Print node dialogue

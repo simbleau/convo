@@ -7,7 +7,7 @@ fn main() {
 
     //Parse path to CTree
     print!("Parsing...");
-    let tree = convo::parse(path).unwrap();
+    let tree = convo::parser::parse(path).unwrap();
     println!("Complete.");
 
     // Print the data structure
