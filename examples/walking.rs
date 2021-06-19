@@ -22,7 +22,7 @@ fn main() {
     walk(ctree);
 }
 
-pub(crate) fn walk(mut ctree: CTree) {
+fn walk(mut ctree: CTree) {
     // Walk the structure
     'walk: while let Some(current) = ctree.current_node() {
         // Print node dialogue
@@ -55,6 +55,4 @@ pub(crate) fn walk(mut ctree: CTree) {
             }
         }
     }
-
-    println!("\nThe conversation has ended.");
 }
