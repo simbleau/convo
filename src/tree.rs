@@ -109,7 +109,7 @@ impl CTree {
     /// let root_node = Node::new(root_key, "The only node.");
     /// tree.nodes.insert(root_key.to_owned(), root_node);
     /// tree.set_root_key(root_key).unwrap();
-    /// assert!(tree.try_export("example.ctree.yml").is_ok());
+    /// assert!(tree.try_export("examples/dialogue_files/export.ctree.yml").is_ok());
     /// ```
     pub fn try_export<P>(&self, path: P) -> Result<(), ExportError>
     where

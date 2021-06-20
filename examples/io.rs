@@ -15,7 +15,7 @@ pub fn main() {
 
     // Export the tree to a new file
     print!("Exporting...");
-    tree.try_export("examples/dialogue_files/ex_export.ctree.yml")
+    tree.try_export("examples/dialogue_files/export.ctree.yml")
         .unwrap();
     println!("Complete.");
 }
