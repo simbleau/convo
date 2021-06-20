@@ -108,7 +108,7 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
 
     // Safety : Sound code - root node guaranteed to exist, per above
     unsafe {
-        tree.set_root_unchecked(&root_key);
+        tree.set_root_key_unchecked(&root_key);
         tree.set_current_unchecked(&root_key);
     }
 

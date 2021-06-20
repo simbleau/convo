@@ -47,7 +47,7 @@ pub fn ctree_to_source(tree: &CTree) -> Result<String, TreeError> {
 }
 
 fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
-    let root_key = tree.root().ok_or_else(|| TreeError::RootNotSet())?;
+    let root_key = tree.root_key().ok_or_else(|| TreeError::RootNotSet())?;
 
     // Check length of nodes
     if tree.nodes.len() == 0 {
@@ -100,7 +100,7 @@ fn node_to_yaml(node: &Node) -> Result<Yaml, TreeError> {
 fn link_to_yaml(link: &Link) -> Result<Yaml, TreeError> {
     let mut map = yaml::Hash::new();
     map.insert(
-        Yaml::String(link.to.to_owned()),
+        Yaml::String(link.to_key.to_owned()),
         Yaml::String(link.dialogue.to_owned()),
     );
     Ok(Yaml::Hash(map))

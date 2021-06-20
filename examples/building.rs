@@ -1,5 +1,4 @@
-use convo::CTree;
-use convo_lib::{link::Link, node::Node};
+use convo::{CTree, Link, Node};
 
 fn main() {
     // Make a new tree
@@ -20,7 +19,7 @@ fn main() {
     tree.nodes.insert(node2.key.clone(), node2);
 
     // Set the root node (which also sets current to root since current is not set)
-    tree.set_root(root_key).unwrap();
+    tree.set_root_key(root_key).unwrap();
 
     // Print the data structure
     println!("\n{:#?}", tree);

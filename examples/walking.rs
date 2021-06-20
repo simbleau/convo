@@ -49,8 +49,8 @@ fn walk(mut ctree: CTree) {
         } else {
             if let Ok(link_id) = line.parse::<usize>() {
                 if let Some(link) = current.links.get(link_id) {
-                    let link_key = link.to.clone();
-                    ctree.set_current(&link_key).unwrap();
+                    let link_key = link.to_key.clone();
+                    ctree.set_current_key(&link_key).unwrap();
                 }
             }
         }

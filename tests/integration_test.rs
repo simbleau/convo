@@ -1,6 +1,6 @@
-use convo_lib::{link::Link, node::Node, tree::CTree};
+use convo::{CTree, Link, Node};
 
-extern crate convo_lib;
+extern crate convo;
 
 #[test]
 // Basic print out of all nodes and links - Not a great test
@@ -20,16 +20,16 @@ fn test_print() {
     tree.nodes.insert(node2.key.clone(), node2);
 
     // Set node1 as root
-    tree.set_root(root_key).unwrap();
+    tree.set_root_key(root_key).unwrap();
 
     // Print root node:
-    println!("Node root: [{}]", tree.root().unwrap());
+    println!("Node root: [{}]", tree.root_key().unwrap());
 
     // Print them all out
     for (_, node) in &tree.nodes {
         println!("Node [{}]: '{}'", node.key, node.dialogue);
         for link in &node.links {
-            let linked_search = tree.nodes.get(&link.to);
+            let linked_search = tree.nodes.get(&link.to_key);
             if let Some(link_node) = linked_search {
                 println!(
                     "Link [{}]->[{}]: '{}'",
