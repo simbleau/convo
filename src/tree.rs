@@ -17,12 +17,7 @@ pub enum TreeError {
     CurrentNotSet(),
     /// An error caused when a [`CTree`] can not find a [`Node`].
     NodeDNE(String),
-    /// An error caused when validating a family rules a [`CTree`] must obey.
-    ///
-    /// # Rules
-    /// * [`Node`]s inserted must have unique keys.
-    /// * [`CTree`]s must have a root node specified when parsing.
-    /// * TODO: More
+    /// An error caused when validating a family of rules a [`CTree`] must obey.
     Validation(String),
 }
 
