@@ -27,7 +27,7 @@ pub enum TreeError {
 }
 
 /// A [`CTree`] is the parent container for a conversation tree. It is a walkable structure which follows the form of a human conversation.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct CTree {
     /// The nodes in this conversation tree. Each [`Node`] is uniquely indexable by its [`Node#key`][`Node#structfield.key`].
     pub nodes: HashMap<String, Node>,
@@ -108,7 +108,7 @@ impl CTree {
     /// let root_key = "root";
     /// let root_node = Node::new(root_key, "The only node.");
     /// tree.nodes.insert(root_key.to_owned(), root_node);
-    /// tree.set_root(root_key).unwrap();
+    /// tree.set_root_key(root_key).unwrap();
     /// assert!(tree.try_export("example.ctree.yml").is_ok());
     /// ```
     pub fn try_export<P>(&self, path: P) -> Result<(), ExportError>
@@ -126,7 +126,7 @@ impl CTree {
     /// ```
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
-    /// unsafe { tree.set_root_unchecked("root"); }
+    /// unsafe { tree.set_root_key_unchecked("root"); }
     /// assert_eq!("root", tree.root_key().unwrap());
     /// ```
     pub fn root_key(&self) -> Option<&String> {
@@ -143,9 +143,9 @@ impl CTree {
     /// let mut tree = CTree::new();
     /// let root_og = Node::new("root", "The only node.");
     /// let root_copy = root_og.clone();
-    /// tree.nodes.insert("root", root_copy);
-    /// tree.set_root("root").unwrap();
-    /// assert_eq!(root_og, tree.root_node().unwrap());
+    /// tree.nodes.insert("root".to_owned(), root_copy);
+    /// tree.set_root_key("root").unwrap();
+    /// assert_eq!(&root_og, tree.root_node().unwrap());
     /// ```
     pub fn root_node(&self) -> Option<&Node> {
         self.nodes.get(self.root_key.as_ref()?)
@@ -170,7 +170,7 @@ impl CTree {
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
     /// let root_node = Node::new("root", "The only node.");
-    /// tree.nodes.insert("root", root_node);
+    /// tree.nodes.insert("root".to_owned(), root_node);
     /// tree.set_root_key("root").unwrap();
     /// ```
     pub fn set_root_key(&mut self, node_key: &str) -> Result<(), TreeError> {
@@ -198,7 +198,7 @@ impl CTree {
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
     /// let root_node = Node::new("root", "The only node.");
-    /// tree.nodes.insert("root", root_node);
+    /// tree.nodes.insert("root".to_owned(), root_node);
     /// unsafe { tree.set_root_key_unchecked("root"); }
     /// ```
     pub unsafe fn set_root_key_unchecked(&mut self, node_key: &str) {
@@ -213,7 +213,7 @@ impl CTree {
     /// ```
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
-    /// unsafe { tree.set_current_unchecked("x"); }
+    /// unsafe { tree.set_current_key_unchecked("x"); }
     /// assert_eq!("x", tree.current_key().unwrap());
     /// ```
     pub fn current_key(&self) -> Option<&String> {
@@ -230,9 +230,9 @@ impl CTree {
     /// let mut tree = CTree::new();
     /// let root_og = Node::new("x", "Some node.");
     /// let root_copy = root_og.clone();
-    /// tree.nodes.insert("x", root_copy);
-    /// tree.set_current("x").unwrap();
-    /// assert_eq!(root_og, tree.current_node().unwrap());
+    /// tree.nodes.insert("x".to_owned(), root_copy);
+    /// tree.set_current_key("x").unwrap();
+    /// assert_eq!(&root_og, tree.current_node().unwrap());
     /// ```
     pub fn current_node(&self) -> Option<&Node> {
         self.nodes.get(self.current_key.as_ref()?)
@@ -254,7 +254,7 @@ impl CTree {
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
     /// let current_node = Node::new("x", "Some node.");
-    /// tree.nodes.insert("x", current_node);
+    /// tree.nodes.insert("x".to_owned(), current_node);
     /// tree.set_current_key("x").unwrap();
     /// ```
     pub fn set_current_key(&mut self, node_key: &str) -> Result<(), TreeError> {
@@ -279,10 +279,10 @@ impl CTree {
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
     /// let current_node = Node::new("x", "Some node.");
-    /// tree.nodes.insert("x", current_node);
+    /// tree.nodes.insert("x".to_owned(), current_node);
     /// unsafe { tree.set_current_key_unchecked("x"); }
     /// ```
-    pub unsafe fn set_current_unchecked(&mut self, node_key: &str) {
+    pub unsafe fn set_current_key_unchecked(&mut self, node_key: &str) {
         self.current_key = Some(node_key.to_owned());
     }
 
@@ -299,8 +299,8 @@ impl CTree {
     /// let mut tree = CTree::new();
     /// let root_node = Node::new("root", "The root.");
     /// let current_node = Node::new("x", "Some node.");
-    /// tree.nodes.insert("root", root_node);
-    /// tree.nodes.insert("x", current_node);
+    /// tree.nodes.insert("root".to_owned(), root_node);
+    /// tree.nodes.insert("x".to_owned(), current_node);
     /// tree.set_root_key("root").unwrap();
     /// tree.set_current_key("x").unwrap();
     /// tree.rewind().unwrap();
@@ -323,9 +323,9 @@ impl CTree {
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
     /// let current_node = Node::new("x", "Some node.");
-    /// tree.nodes.insert("x", current_node);
+    /// tree.nodes.insert("x".to_owned(), current_node);
     /// tree.set_current_key("x").unwrap();
-    /// unsafe { tree.rewind_unchecked().unwrap(); }
+    /// unsafe { tree.rewind_unchecked(); }
     /// assert!(tree.current_key().is_none()); // Because the root was `None`.
     /// ```
     pub unsafe fn rewind_unchecked(&mut self) {
@@ -340,12 +340,12 @@ impl CTree {
     /// use convo::{CTree, Node};
     /// let mut tree = CTree::new();
     /// let root_node = Node::new("root", "The root.");
-    /// tree.nodes.insert("root", root_node);
+    /// tree.nodes.insert("root".to_owned(), root_node);
     /// tree.set_root_key("root").unwrap();
     /// tree.reset();
     /// assert_eq!(0, tree.nodes.len());
-    /// assert_eq!(None, tree.root_key().unwrap());
-    /// assert_eq!(None, tree.current_key().unwrap());
+    /// assert!(tree.root_key().is_none());
+    /// assert!(tree.current_key().is_none());
     /// ```
     pub fn reset(&mut self) {
         self.nodes.clear();

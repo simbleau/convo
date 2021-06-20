@@ -1,7 +1,7 @@
 use crate::node::Node;
 
 /// A [`Link`] is a uni-directional path to a [`Node`] with descriptor [`dialogue`][`Link#structfield.dialogue`].
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct Link {
     /// A key to the node being linked. This should be identical to an existing [`Node#key`][`Node#structfield.key`].
     pub to_key: String,

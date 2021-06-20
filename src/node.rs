@@ -1,7 +1,7 @@
 use crate::link::Link;
 
 /// A [`Node`] is a node in a conversation tree. It canonically acts as a fork of decisions by wrapping prompting [`dialogue`][`Node#structfield.dialogue`] and a list of path options (called [`Link`]s).
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct Node {
     /// The key of this node. Must be unique.
     pub key: String,
