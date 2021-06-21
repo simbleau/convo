@@ -33,7 +33,7 @@ pub fn export<P>(tree: &CTree, path: P) -> Result<(), ExportError>
 where
     P: AsRef<Path>,
 {
-    let source = ctree_to_source(tree).map_err(|err| ExportError::Tree(err))?;
+    let source = ctree_to_source(tree)?;
 
     // Write file
     let mut file = File::create(path)?;
@@ -68,29 +68,28 @@ where
 /// let source2 = exporter::ctree_to_source(&tree).unwrap();
 /// assert_eq!(source, source2);
 /// ```
-pub fn ctree_to_source(tree: &CTree) -> Result<String, TreeError> {
+pub fn ctree_to_source(tree: &CTree) -> Result<String, ExportError> {
     let yaml = ctree_to_yaml(&tree)?;
+
     // Convert to source text
     let mut writer = String::new();
     let mut emitter = YamlEmitter::new(&mut writer);
     emitter.compact(true);
-    emitter
-        .dump(&yaml)
-        .map_err(|_err| TreeError::Validation("YAML Dump error".to_string()))?;
+    emitter.dump(&yaml)?;
 
     Ok(writer)
 }
 
 fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
+    // Check root key exists
     let root_key = tree.root_key().ok_or_else(|| TreeError::RootNotSet())?;
 
     // Check length of nodes
     if tree.nodes.len() == 0 {
-        return Err(TreeError::Validation(
-            "At least one node must be given".into(),
-        ));
+        return Err(TreeError::Validation("Node map has a length of 0".into()));
     }
 
+    // Build node map
     let mut node_map = yaml::Hash::new();
     for (key, node) in &tree.nodes {
         let yaml_key = Yaml::String(key.to_owned());
@@ -98,6 +97,7 @@ fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
         node_map.insert(yaml_key, yaml_node);
     }
 
+    // Build the document
     let mut yaml = yaml::Hash::new();
     yaml.insert(
         Yaml::String("root".to_string()),
@@ -109,6 +109,7 @@ fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
 }
 
 fn node_to_yaml(node: &Node) -> Result<Yaml, TreeError> {
+    // Make node buffer
     let mut map = yaml::Hash::new();
 
     // Set dialogue
