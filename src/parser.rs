@@ -14,7 +14,6 @@ use std::{fs::File, io::Read, path::Path};
 #[derive(Debug)]
 pub enum ParseError {
     /// An error caused when IO issues occur during parsing.
-    /// See also: [`CTree#root`][`CTree#structfield.root].
     IO(std::io::Error),
     /// An error caused when YAML is unable to be scanned in.
     Scan(yaml_rust::ScanError),
