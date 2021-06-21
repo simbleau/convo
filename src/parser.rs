@@ -1,47 +1,14 @@
 //! A family of functions which parse YAML into [`CTree`]s.
 
 use crate::{
+    error::{ParseError, TreeError},
     link::Link,
     node::Node,
-    tree::{CTree, TreeError},
+    tree::CTree,
 };
 
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};
-
-/// A [`ParseError`] is a category of errors returned by parser functions that returns [`Result`]s.
-#[derive(Debug)]
-pub enum ParseError {
-    /// An error caused when IO issues occur during parsing.
-    IO(std::io::Error),
-    /// An error caused when YAML is unable to be scanned in.
-    Scan(yaml_rust::ScanError),
-    /// An error caused when a tree is not considered legal.
-    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
-    Tree(TreeError),
-    /// An error caused when validating a file for parsing.
-    Validation(String),
-}
-impl From<std::io::Error> for ParseError {
-    fn from(item: std::io::Error) -> Self {
-        ParseError::IO(item)
-    }
-}
-impl From<yaml_rust::ScanError> for ParseError {
-    fn from(item: yaml_rust::ScanError) -> Self {
-        ParseError::Scan(item)
-    }
-}
-impl From<String> for ParseError {
-    fn from(item: String) -> Self {
-        ParseError::Validation(item)
-    }
-}
-impl From<&str> for ParseError {
-    fn from(item: &str) -> Self {
-        ParseError::Validation(item.to_owned())
-    }
-}
 
 /// Try to returns a [`CTree`] which is generated from parsing a file.
 ///
@@ -52,8 +19,8 @@ impl From<&str> for ParseError {
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
@@ -81,8 +48,8 @@ where
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
@@ -103,7 +70,7 @@ pub fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
     // Parse the YAML
     let docs = YamlLoader::load_from_str(source)?;
     if docs.len() != 1 {
-        return Err("Only one YAML document must be provided".into());
+        return Err(ParseError::MultipleDocumentsProvided());
     }
     let yaml = &docs[0];
 
@@ -128,19 +95,17 @@ where
 fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
     // This needs some major cleanup
 
-    let root_key = yaml["root"]
-        .as_str()
-        .ok_or_else(|| "The root key is missing")?;
+    let root_key = yaml["root"].as_str().ok_or_else(|| {
+        TreeError::Validation("YAML does not contain top-level string key for `root`".into())
+    })?;
 
-    let node_map = yaml["nodes"]
-        .as_hash()
-        .ok_or_else(|| "The nodes are missing")?;
+    let node_map = yaml["nodes"].as_hash().ok_or_else(|| {
+        TreeError::Validation("YAML does not contain top-level hash for `nodes`".into())
+    })?;
 
     // Check length of nodes
     if node_map.len() == 0 {
-        return Err(ParseError::Validation(
-            "At least one node must be given".into(),
-        ));
+        return Err(TreeError::Validation("Node map has a length of 0".into()).into());
     }
 
     let mut tree = CTree::new();
@@ -153,9 +118,7 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
 
     // Set root and current
     if !tree.nodes.contains_key(root_key) {
-        return Err(ParseError::Tree(TreeError::NodeDNE(
-            format!("Root node DNE for key '{:?}'", root_key).to_owned(),
-        )));
+        return Err(TreeError::NodeDNE(root_key.into()).into());
     }
 
     // Safety : Sound code - root node guaranteed to exist, per above
@@ -169,21 +132,25 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
 
 fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
     // Unwrap name
-    let key = yaml_key
-        .as_str()
-        .ok_or_else(|| format!("Missing node name for '{:?}'", yaml_key))?;
+    let key = yaml_key.as_str().ok_or_else(|| {
+        TreeError::Validation(format!("YAML key is not a string: `{:?}`", yaml_key))
+    })?;
 
     // Unwrap data
-    let data = yaml_data
-        .as_hash()
-        .ok_or_else(|| format!("Missing node data for '{:?}'", yaml_data))?;
+    let data = yaml_data.as_hash().ok_or_else(|| {
+        TreeError::Validation(format!("YAML data is not a hash: '{:?}'", yaml_data))
+    })?;
 
     // Unwrap dialogue
     let dialogue = data
         .get(&Yaml::from_str("dialogue"))
-        .ok_or_else(|| format!("Dialogue missing for '{:?}'", key))?
+        .ok_or_else(|| {
+            TreeError::Validation(format!("YAML does not contain dialogue for `{:?}`", key))
+        })?
         .as_str()
-        .ok_or_else(|| format!("Dialogue not a string for '{:?}'", key))?;
+        .ok_or_else(|| {
+            TreeError::Validation(format!("YAML dialogue is not a string for `{:?}`", key))
+        })?;
 
     let mut node = Node::new(key, dialogue);
 
@@ -199,27 +166,28 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
 
 fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
     // Unwrap link array
-    let links = yaml
-        .as_vec()
-        .ok_or_else(|| format!("Links not an array for '{:?}'", yaml))?;
+    let links = yaml.as_vec().ok_or_else(|| {
+        TreeError::Validation(format!("YAML link data is not an array: '{:?}'", yaml))
+    })?;
 
     if links.len() == 0 {
-        return Err(format!("Links empty for '{:?}'", yaml).into());
+        return Err(TreeError::Validation("Links array has a length of 0".into()).into());
     }
 
     // Collect links
     let mut link_buf = Vec::<Link>::new();
     for yaml_link in links {
-        let yaml_link_hash = yaml_link
-            .as_hash()
-            .ok_or_else(|| format!("Links not a hash for '{:?}'", yaml))?;
+        let yaml_link_hash = yaml_link.as_hash().ok_or_else(|| {
+            TreeError::Validation(format!("YAML link is not a hash: '{:?}'", yaml))
+        })?;
+
         for (yaml_to, yaml_dialogue) in yaml_link_hash {
-            let to = yaml_to
-                .as_str()
-                .ok_or_else(|| format!("Link name missing for '{:?}'", yaml))?;
-            let dialogue = yaml_dialogue
-                .as_str()
-                .ok_or_else(|| format!("Links dialogue missing for '{:?}'", to))?;
+            let to = yaml_to.as_str().ok_or_else(|| {
+                TreeError::Validation(format!("YAML link name is not a string:  '{:?}'", yaml))
+            })?;
+            let dialogue = yaml_dialogue.as_str().ok_or_else(|| {
+                TreeError::Validation(format!("YAML link dialogue is not a string for `{:?}`", to))
+            })?;
             let link = Link::new(to, dialogue);
             link_buf.push(link);
         }

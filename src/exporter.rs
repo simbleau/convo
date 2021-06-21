@@ -1,30 +1,14 @@
 //! A family of functions which export [`CTree`]s into YAML data.
 
 use crate::{
+    error::{ExportError, TreeError},
     link::Link,
     node::Node,
-    tree::{CTree, TreeError},
+    tree::CTree,
 };
 
 use std::{fs::File, io::Write, path::Path};
-use yaml_rust::{yaml, EmitError, Yaml, YamlEmitter};
-
-/// An [`ExportError`] is a category of errors returned by exporter functions that returns [`Result`]s.
-#[derive(Debug)]
-pub enum ExportError {
-    /// An error caused when IO issues occur during exporting.
-    IO(std::io::Error),
-    /// An error caused when YAML is unable to be emitted.
-    Emit(EmitError),
-    /// An error caused when a tree is not considered legal to export.
-    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
-    Tree(TreeError),
-}
-impl From<std::io::Error> for ExportError {
-    fn from(item: std::io::Error) -> Self {
-        ExportError::IO(item)
-    }
-}
+use yaml_rust::{yaml, Yaml, YamlEmitter};
 
 /// Try to save a [`CTree`] as a file.
 ///
@@ -34,8 +18,8 @@ impl From<std::io::Error> for ExportError {
 ///
 /// # Errors
 ///
-/// * An [`ExportError`] will be returned if the tree breaks validation rules or incurs issues saving.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * An [`ExportError`] will be returned if the tree is not considered legal or incurs issues saving.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
@@ -49,7 +33,7 @@ pub fn export<P>(tree: &CTree, path: P) -> Result<(), ExportError>
 where
     P: AsRef<Path>,
 {
-    let source = ctree_to_source(tree).map_err(|err| ExportError::Tree(err))?;
+    let source = ctree_to_source(tree)?;
 
     // Write file
     let mut file = File::create(path)?;
@@ -66,8 +50,8 @@ where
 ///
 /// # Errors
 ///
-/// * An [`ExportError`] will be returned if the tree breaks validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * An [`ExportError`] will be returned if the tree is not considered legal to export.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
@@ -84,29 +68,28 @@ where
 /// let source2 = exporter::ctree_to_source(&tree).unwrap();
 /// assert_eq!(source, source2);
 /// ```
-pub fn ctree_to_source(tree: &CTree) -> Result<String, TreeError> {
+pub fn ctree_to_source(tree: &CTree) -> Result<String, ExportError> {
     let yaml = ctree_to_yaml(&tree)?;
+
     // Convert to source text
     let mut writer = String::new();
     let mut emitter = YamlEmitter::new(&mut writer);
     emitter.compact(true);
-    emitter
-        .dump(&yaml)
-        .map_err(|_err| TreeError::Validation("YAML Dump error".to_string()))?;
+    emitter.dump(&yaml)?;
 
     Ok(writer)
 }
 
 fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
+    // Check root key exists
     let root_key = tree.root_key().ok_or_else(|| TreeError::RootNotSet())?;
 
     // Check length of nodes
     if tree.nodes.len() == 0 {
-        return Err(TreeError::Validation(
-            "At least one node must be given".into(),
-        ));
+        return Err(TreeError::Validation("Node map has a length of 0".into()));
     }
 
+    // Build node map
     let mut node_map = yaml::Hash::new();
     for (key, node) in &tree.nodes {
         let yaml_key = Yaml::String(key.to_owned());
@@ -114,6 +97,7 @@ fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
         node_map.insert(yaml_key, yaml_node);
     }
 
+    // Build the document
     let mut yaml = yaml::Hash::new();
     yaml.insert(
         Yaml::String("root".to_string()),
@@ -125,6 +109,7 @@ fn ctree_to_yaml(tree: &CTree) -> Result<Yaml, TreeError> {
 }
 
 fn node_to_yaml(node: &Node) -> Result<Yaml, TreeError> {
+    // Make node buffer
     let mut map = yaml::Hash::new();
 
     // Set dialogue

@@ -1,9 +1,9 @@
---- 
+---
 root: start
-nodes: 
-  start: 
-    dialogue: Hello, how are you?
-    links: 
-      - end: I'm rudely in a hurry.
-  end: 
-    dialogue: Ok, let's talk some other time.
+nodes:
+  start:
+    dialogue: "Hello, how are you?"
+    links:
+      - end: "I'm rudely in a hurry."
+  end:
+    dialogue: "Ok, let's talk some other time."
