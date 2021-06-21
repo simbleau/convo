@@ -1,14 +1,13 @@
 //! A family of functions which parse YAML into [`CTree`]s.
 
-extern crate yaml_rust;
-use yaml_rust::{Yaml, YamlLoader};
-
-use crate::link::Link;
-use crate::node::Node;
-use crate::tree::CTree;
-use crate::tree::TreeError;
+use crate::{
+    link::Link,
+    node::Node,
+    tree::{CTree, TreeError},
+};
 
 use std::{fs::File, io::Read, path::Path};
+use yaml_rust::{Yaml, YamlLoader};
 
 /// A [`ParseError`] is a category of errors returned by parser functions that returns [`Result`]s.
 #[derive(Debug)]
