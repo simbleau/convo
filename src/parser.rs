@@ -1,18 +1,25 @@
-extern crate yaml_rust;
+//! A family of functions which parse YAML into [`CTree`]s.
 
-use crate::link::Link;
-use crate::node::Node;
-use crate::tree::CTree;
-use crate::tree::TreeError;
+use crate::{
+    link::Link,
+    node::Node,
+    tree::{CTree, TreeError},
+};
 
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};
 
+/// A [`ParseError`] is a category of errors returned by parser functions that returns [`Result`]s.
 #[derive(Debug)]
 pub enum ParseError {
+    /// An error caused when IO issues occur during parsing.
     IO(std::io::Error),
+    /// An error caused when YAML is unable to be scanned in.
     Scan(yaml_rust::ScanError),
+    /// An error caused when a tree is not considered legal.
+    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
     Tree(TreeError),
+    /// An error caused when validating a file for parsing.
     Validation(String),
 }
 impl From<std::io::Error> for ParseError {
@@ -36,6 +43,24 @@ impl From<&str> for ParseError {
     }
 }
 
+/// Try to returns a [`CTree`] which is generated from parsing a file.
+///
+/// # Arguments
+///
+/// * `path` - A path type that references a file to parse from.
+/// See also: [example dialogue files](https://github.com/simbleau/convo/tree/main/examples/dialogue_files).
+///
+/// # Errors
+///
+/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
+/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+///
+/// # Examples
+///
+/// ```
+/// use convo::parser;
+/// let tree = parser::parse("examples/dialogue_files/ex_min.ctree.yml").unwrap();
+/// ```
 pub fn parse<P>(path: P) -> Result<CTree, ParseError>
 where
     P: AsRef<Path>,
@@ -47,18 +72,33 @@ where
     Ok(convo_tree)
 }
 
-fn get_file_source<P>(path: P) -> Result<String, ParseError>
-where
-    P: AsRef<Path>,
-{
-    // Read the file contents
-    let mut file = File::open(path)?;
-    let mut buf = String::new();
-    file.read_to_string(&mut buf)?;
-
-    Ok(buf)
-}
-
+/// Try to returns a [`CTree`] which is generated from parsing a string slice.
+///
+/// # Arguments
+///
+/// * `source` - A string slice that holds valid YAML data to parse from.
+/// See also: [example dialogue files](https://github.com/simbleau/convo/tree/main/examples/dialogue_files).
+///
+/// # Errors
+///
+/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
+/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+///
+/// # Examples
+///
+/// ```
+/// use convo::parser;
+/// let source = r#"
+/// ---
+/// root: start
+/// nodes:
+///     start:
+///         dialogue: I am a recursive node.
+///         links:
+///             - start: Recurse!
+/// "#;
+/// let tree = parser::source_to_ctree(source).unwrap();
+/// ```
 pub fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
     // Parse the YAML
     let docs = YamlLoader::load_from_str(source)?;
@@ -71,6 +111,18 @@ pub fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
     let ctree = yaml_to_ctree(yaml)?;
 
     Ok(ctree)
+}
+
+fn get_file_source<P>(path: P) -> Result<String, ParseError>
+where
+    P: AsRef<Path>,
+{
+    // Read the file contents
+    let mut file = File::open(path)?;
+    let mut buf = String::new();
+    file.read_to_string(&mut buf)?;
+
+    Ok(buf)
 }
 
 fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
@@ -108,8 +160,8 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
 
     // Safety : Sound code - root node guaranteed to exist, per above
     unsafe {
-        tree.set_root_unchecked(&root_key);
-        tree.set_current_unchecked(&root_key);
+        tree.set_root_key_unchecked(&root_key);
+        tree.set_current_key_unchecked(&root_key);
     }
 
     Ok(tree)

@@ -1,15 +1,21 @@
 [package]
 name = "convo"
+description = "A modern dialogue executor and tree parser using YAML, focusing on ease-of-use and speed."
 version = "0.1.0"
 authors = ["Spencer Imbleau <spencer@imbleau.com>", "Thomas Houtart <thomas.houtart98@gmail.com>"]
 edition = "2018"
-
-[dependencies.convo-lib]
-version = "*"
-path = "convo-lib"
+license = "MIT OR Apache-2.0"
+homepage = "https://crates.io/crates/convo"
+documentation = "https://docs.rs/convo"
+readme = "README.md"
+repository = "https://github.com/rust-lang/cargo"
+keywords = ["dialogue", "conversation", "convo", "tree", "executor", "parser", "yaml", "yml", "ctree"]
+categories = ["data-structures", "game-development", "parser-implementations", "text-processing"]
 
 [dev-dependencies]
 text_io = "0.1.8"
 
-[workspace]
-members = ["convo-lib"]
+[dependencies]
+yaml-rust = "0.4"
+serde = "1.0"
+serde_yaml = "0.8"

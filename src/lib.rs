@@ -1,15 +1,21 @@
-// TODO: Write documentation
-/*
+// Documentation requirements
 #![warn(missing_docs)]
-#![warn(rustdoc::missing_crate_level_docs)]
 #![warn(rustdoc::missing_doc_code_examples)]
-#![warn(rustdoc::invalid_codeblock_attributes)]
-#![warn(rustdoc::broken_intra_doc_links)]
-*/
+#![deny(rustdoc::missing_crate_level_docs)]
+#![allow(rustdoc::private_doc_tests)] //TODO: Deny this
+#![deny(rustdoc::broken_intra_doc_links)]
+// Doc attributes
+#![doc(issue_tracker_base_url = "https://github.com/simbleau/convo/issues/")]
 
 //! A modern dialogue executor and tree parser using YAML, focusing on ease-of-use and speed.
-pub use convo_lib::exporter;
-pub use convo_lib::link::Link;
-pub use convo_lib::node::Node;
-pub use convo_lib::parser;
-pub use convo_lib::tree::CTree;
+
+pub mod exporter;
+pub mod parser;
+
+mod link;
+mod node;
+mod tree;
+
+pub use link::Link;
+pub use node::Node;
+pub use tree::CTree;

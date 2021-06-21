@@ -22,7 +22,7 @@ fn main() {
     walk(ctree);
 }
 
-pub(crate) fn walk(mut ctree: CTree) {
+fn walk(mut ctree: CTree) {
     // Walk the structure
     'walk: while let Some(current) = ctree.current_node() {
         // Print node dialogue
@@ -49,12 +49,10 @@ pub(crate) fn walk(mut ctree: CTree) {
         } else {
             if let Ok(link_id) = line.parse::<usize>() {
                 if let Some(link) = current.links.get(link_id) {
-                    let link_key = link.to.clone();
-                    ctree.set_current(&link_key).unwrap();
+                    let link_key = link.to_key.clone();
+                    ctree.set_current_key(&link_key).unwrap();
                 }
             }
         }
     }
-
-    println!("\nThe conversation has ended.");
 }
