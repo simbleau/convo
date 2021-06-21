@@ -9,6 +9,7 @@
 
 //! A modern dialogue executor and tree parser using YAML, focusing on ease-of-use and speed.
 
+pub mod error;
 pub mod exporter;
 pub mod parser;
 

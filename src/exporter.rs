@@ -1,30 +1,14 @@
 //! A family of functions which export [`CTree`]s into YAML data.
 
 use crate::{
+    error::{ExportError, TreeError},
     link::Link,
     node::Node,
-    tree::{CTree, TreeError},
+    tree::CTree,
 };
 
 use std::{fs::File, io::Write, path::Path};
-use yaml_rust::{yaml, EmitError, Yaml, YamlEmitter};
-
-/// An [`ExportError`] is a category of errors returned by exporter functions that returns [`Result`]s.
-#[derive(Debug)]
-pub enum ExportError {
-    /// An error caused when IO issues occur during exporting.
-    IO(std::io::Error),
-    /// An error caused when YAML is unable to be emitted.
-    Emit(EmitError),
-    /// An error caused when a tree is not considered legal to export.
-    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
-    Tree(TreeError),
-}
-impl From<std::io::Error> for ExportError {
-    fn from(item: std::io::Error) -> Self {
-        ExportError::IO(item)
-    }
-}
+use yaml_rust::{yaml, Yaml, YamlEmitter};
 
 /// Try to save a [`CTree`] as a file.
 ///

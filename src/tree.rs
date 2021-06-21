@@ -1,25 +1,10 @@
 use std::{collections::HashMap, path::Path};
 
 use crate::{
-    exporter::{self, ExportError},
+    error::{ExportError, ParseError, TreeError},
+    exporter,
     node::Node,
-    parser::ParseError,
 };
-
-/// A [`TreeError`] is a category of errors returned by [`CTree`] methods which returns [`Result`]s.
-#[derive(Debug)]
-pub enum TreeError {
-    /// An error caused when a [`CTree`] is missing a root [`Node`].
-    /// See also: [`CTree#root`][`CTree#structfield.root].
-    RootNotSet(),
-    /// An error caused when a [`CTree`] is missing a current [`Node`].
-    /// See also: [`CTree#current`][`CTree#structfield.current].
-    CurrentNotSet(),
-    /// An error caused when a [`CTree`] can not find a [`Node`].
-    NodeDNE(String),
-    /// An error caused when validating a family of rules a [`CTree`] must obey.
-    Validation(String),
-}
 
 /// A [`CTree`] is the parent container for a conversation tree. It is a walkable structure which follows the form of a human conversation.
 #[derive(Debug, Clone, Eq, PartialEq)]
