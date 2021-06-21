@@ -52,7 +52,7 @@ impl CTree {
     /// # Errors
     ///
     /// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
-    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+    /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Examples
     ///
@@ -76,7 +76,7 @@ impl CTree {
     /// # Errors
     ///
     /// * An [`ExportError`] will be returned if the file is unable to be saved or the tree is not in a saveable state because it breaks validation rules.
-    /// See also: [validation rules](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md#validation-rules).
+    /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Examples
     ///
@@ -132,7 +132,7 @@ impl CTree {
     // Sets the root node to a new node defined by a key
     // Also sets current to root node if current is None
 
-    /// Try to set the root node key for a [`CTree`]. If [`CTree#current`][`CTree#structfield.current`] is [`None`], this will automatically be dually initialized to the root key. If you want to set the root node without any [validation checks](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md#validation-rules), try [`set_root_key_unchecked`][`CTree#method.set_root_key_unchecked`].
+    /// Try to set the root node key for a [`CTree`]. If [`CTree#current`][`CTree#structfield.current`] is [`None`], this will automatically be dually initialized to the root key. If you want to set the root node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`set_root_key_unchecked`][`CTree#method.set_root_key_unchecked`].
     ///
     /// # Arguments
     ///
@@ -164,7 +164,7 @@ impl CTree {
         Ok(())
     }
 
-    /// Set the root node key for a [`CTree`] without [validation checks](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md#validation-rules). Unlike [`set_root_key`][`CTree#method.set_root_key`], this method will **not** incur side effects to [`CTree#current`][`CTree#structfield.current`] in any way.
+    /// Set the root node key for a [`CTree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules). Unlike [`set_root_key`][`CTree#method.set_root_key`], this method will **not** incur side effects to [`CTree#current`][`CTree#structfield.current`] in any way.
     ///
     /// # Arguments
     ///
@@ -216,7 +216,7 @@ impl CTree {
         self.nodes.get(self.current_key.as_ref()?)
     }
 
-    /// Try to set the current node key for a [`CTree`]. If you want to set the current node without any [validation checks](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md#validation-rules), try [`set_current_key_unchecked`][`CTree#method.set_current_key_unchecked`].
+    /// Try to set the current node key for a [`CTree`]. If you want to set the current node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`set_current_key_unchecked`][`CTree#method.set_current_key_unchecked`].
     ///
     /// # Arguments
     ///
@@ -245,7 +245,7 @@ impl CTree {
         Ok(())
     }
 
-    /// Set the current node key for a [`CTree`] without [validation checks](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md#validation-rules).
+    /// Set the current node key for a [`CTree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Arguments
     ///
@@ -264,7 +264,7 @@ impl CTree {
         self.current_key = Some(node_key.to_owned());
     }
 
-    /// Try to rewind the current node key for a [`CTree`] back to the root key by cloning the root key. If you want to rewind the current node without any [validation checks](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md#validation-rules), try [`rewind_unchecked`][`CTree#method.rewind_unchecked`].
+    /// Try to rewind the current node key for a [`CTree`] back to the root key by cloning the root key. If you want to rewind the current node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`rewind_unchecked`][`CTree#method.rewind_unchecked`].
     ///
     /// # Errors
     ///

@@ -18,8 +18,8 @@ use yaml_rust::{yaml, Yaml, YamlEmitter};
 ///
 /// # Errors
 ///
-/// * An [`ExportError`] will be returned if the tree breaks validation rules or incurs issues saving.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * An [`ExportError`] will be returned if the tree is not considered legal or incurs issues saving.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
@@ -50,8 +50,8 @@ where
 ///
 /// # Errors
 ///
-/// * An [`ExportError`] will be returned if the tree breaks validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * An [`ExportError`] will be returned if the tree is not considered legal to export.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///

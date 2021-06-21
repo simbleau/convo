@@ -8,7 +8,7 @@ pub enum ExportError {
     /// An error caused when YAML is unable to be emitted.
     Emit(yaml_rust::EmitError),
     /// An error caused when a tree is not considered legal to export.
-    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+    /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     Tree(TreeError),
 }
 impl From<std::io::Error> for ExportError {
@@ -34,8 +34,8 @@ pub enum ParseError {
     IO(std::io::Error),
     /// An error caused when YAML is unable to be scanned in.
     Scan(yaml_rust::ScanError),
-    /// An error caused when a tree breaks validation rules.
-    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+    /// An error caused when a tree is not considered legal when parsing.
+    /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     Tree(TreeError),
     /// An error caused when the target parsing content contains multiple YAML documents.
     MultipleDocumentsProvided(),
@@ -56,8 +56,8 @@ impl From<TreeError> for ParseError {
     }
 }
 
-/// A [`TreeError`] is a category of validation errors returned when a tree is not considered legal per validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// A [`TreeError`] is a category of validation errors returned when a tree is not considered legal.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 #[derive(Debug)]
 pub enum TreeError {
     /// An error caused when a [`crate::CTree`] is missing a root [`crate::Node`].

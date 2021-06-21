@@ -19,8 +19,8 @@ use yaml_rust::{Yaml, YamlLoader};
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
@@ -48,8 +48,8 @@ where
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
-/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
