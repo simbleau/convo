@@ -56,9 +56,9 @@ convo = "0.0.0" # Not released
 ## Examples
 
 Check out these important examples:
-  * [Building a ctree imperatively](examples/building.rs)
-  * [Importing/Exporting ctree files](examples/io.rs))
-  * [Walking a ctree](examples/walking.rs)
+  * [Building a `CTree` imperatively](examples/building.rs)
+  * [Importing/Exporting `*.ctree.yml` files](examples/io.rs))
+  * [Walking a `CTree`](examples/walking.rs)
 
 ## Formatting Rules
 
