@@ -73,15 +73,13 @@ impl CTree {
     ///
     /// ```
     /// use convo::CTree;
-    /// let source = r#"
-    /// ---
+    /// let source = r#"---
     /// root: start
     /// nodes:
-    ///     start:
-    ///         dialogue: I am a recursive node.
-    ///         links:
-    ///             - start: Recurse!
-    /// "#;
+    ///   start:
+    ///     dialogue: I am a recursive node.
+    ///     links:
+    ///       - start: Recurse!"#;
     /// let tree = CTree::try_from(source).unwrap();
     /// ```
     pub fn try_from(source: &str) -> Result<Self, ParseError> {
