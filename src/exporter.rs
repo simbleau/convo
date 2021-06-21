@@ -1,6 +1,4 @@
-use std::{fs::File, io::Write, path::Path};
-
-use yaml_rust::{yaml, EmitError, Yaml, YamlEmitter};
+//! A family of functions which export [`CTree`]s into YAML data.
 
 use crate::{
     link::Link,
@@ -8,10 +6,18 @@ use crate::{
     tree::{CTree, TreeError},
 };
 
+use std::{fs::File, io::Write, path::Path};
+use yaml_rust::{yaml, EmitError, Yaml, YamlEmitter};
+
+/// An [`ExportError`] is a category of errors returned by exporter functions that returns [`Result`]s.
 #[derive(Debug)]
 pub enum ExportError {
+    /// An error caused when IO issues occur during exporting.
     IO(std::io::Error),
+    /// An error caused when YAML is unable to be emitted.
     Emit(EmitError),
+    /// An error caused when a tree is not considered legal to export.
+    /// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
     Tree(TreeError),
 }
 impl From<std::io::Error> for ExportError {
@@ -20,6 +26,25 @@ impl From<std::io::Error> for ExportError {
     }
 }
 
+/// Try to save a [`CTree`] as a file.
+///
+/// # Arguments
+///
+/// * `tree` - A [`CTree`] that will be saved in a file.
+///
+/// # Errors
+///
+/// * An [`ExportError`] will be returned if the tree breaks validation rules or incurs issues saving.
+/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+///
+/// # Examples
+///
+/// ```
+/// use convo::{parser, exporter};
+/// let tree = parser::parse("examples/dialogue_files/ex_min.ctree.yml").unwrap();
+/// // Make a copy of the file
+/// exporter::export(&tree, "examples/dialogue_files/export.ctree.yml").unwrap();
+/// ```
 pub fn export<P>(tree: &CTree, path: P) -> Result<(), ExportError>
 where
     P: AsRef<Path>,
@@ -33,6 +58,32 @@ where
     Ok(())
 }
 
+/// Try to returns a [`String`] which is generated as YAML from a [`CTree`].
+///
+/// # Arguments
+///
+/// * `tree` - A [`CTree`] that will be returned as YAML data.
+///
+/// # Errors
+///
+/// * An [`ExportError`] will be returned if the tree breaks validation rules.
+/// See also: [format information here](https://github.com/simbleau/convo/tree/main/examples/dialogue_files/README.md).
+///
+/// # Examples
+///
+/// ```
+/// use convo::{parser, exporter};
+/// let source = r#"---
+/// root: start
+/// nodes:
+///   start:
+///     dialogue: I am a recursive node.
+///     links:
+///       - start: Recurse!"#;
+/// let tree = parser::source_to_ctree(source).unwrap();
+/// let source2 = exporter::ctree_to_source(&tree).unwrap();
+/// assert_eq!(source, source2);
+/// ```
 pub fn ctree_to_source(tree: &CTree) -> Result<String, TreeError> {
     let yaml = ctree_to_yaml(&tree)?;
     // Convert to source text
