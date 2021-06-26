@@ -264,7 +264,7 @@ fn test_source_to_ctree_attributes() {
 
 #[test]
 #[ignore = "Waiting on issue #3"]
-fn test_source_to_ctree_orphan_nodes() {
+fn test_source_to_ctree_unreachable_nodes() {
     // `end` is an orphan node. It is not reachable.
     let source = r#"---
     root: start
@@ -290,6 +290,22 @@ fn test_source_to_ctree_orphan_nodes() {
             dialogue: "Hello, how are you?"
         end:
             dialogue: "Ok, let's talk some other time."
+    "#;
+    assert!(source_to_ctree(source).is_err());
+}
+
+#[test]
+#[ignore = "Waiting on issue #10"]
+fn test_source_to_ctree_invalid_links() {
+    // `not_a_real_key` is an invalid reference key.
+    let source = r#"---
+    root: start
+    nodes:
+        start:
+            dialogue: "I am the start node"
+            links:
+                - start: "I am valid and link to myself"
+                - not_a_real_key: "I do not link to a valid key"
     "#;
     assert!(source_to_ctree(source).is_err());
 }
