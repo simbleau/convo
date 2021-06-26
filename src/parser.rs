@@ -108,13 +108,12 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
         return Err(TreeError::Validation("Node map has a length of 0".into()).into());
     }
 
+    // Insert nodes
     let mut tree = CTree::new();
-    node_map
-        .iter()
-        .flat_map(|(key, value)| yaml_to_node(key, value))
-        .for_each(|node| {
-            tree.nodes.insert(node.key.clone(), node);
-        });
+    for (key, value) in node_map.iter() {
+        let node = yaml_to_node(key, value)?;
+        tree.nodes.insert(node.key.clone(), node);
+    }
 
     // Set root and current
     if !tree.nodes.contains_key(root_key) {
@@ -194,4 +193,86 @@ fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
     }
 
     Ok(link_buf)
+}
+
+#[cfg(test)]
+#[test]
+fn test_parse() {
+    let bad_file = "examples/dialogue_files/ex_bad.ctree.yml";
+    assert!(parse(bad_file).is_err());
+
+    let good_file = "examples/dialogue_files/ex_min.ctree.yml";
+    assert!(parse(good_file).is_ok());
+}
+
+#[test]
+fn test_source_to_ctree() {
+    // Test a minimal valid source
+    let source = r#"---
+    root: start
+    nodes:
+        start:
+            dialogue: "It's a bad day."
+    "#;
+    assert!(source_to_ctree(source).is_ok());
+}
+
+#[test]
+fn test_source_to_ctree_root_exists() {
+    // Invalid: YAML must contain a top-level element called `root`.
+    let source = r#"---
+    nodes:
+        start:
+            dialogue: "It's a bad day."
+    "#;
+    assert!(source_to_ctree(source).is_err());
+
+    // Invalid: YAML must contain a top-level element called `root` which points to a real node
+    let source = r#"---
+    root: abc_123
+    nodes:
+        start:
+            dialogue: "It's a bad day."
+    "#;
+    assert!(source_to_ctree(source).is_err());
+}
+
+#[test]
+fn test_source_to_ctree_nodes_exist() {
+    // Invalid: `nodes` must contain at least 1 node.
+    let source = r#"---
+    root: start
+    nodes:
+    "#;
+    assert!(source_to_ctree(source).is_err());
+}
+
+#[test]
+fn test_source_to_ctree_attributes() {
+    // `start` does not contain dialogue.
+    let source = r#"---
+    root: start
+    nodes:
+        start:
+            links:
+            - end: "I'm rudely in a hurry."
+        end:
+            dialogue: "Ok, let's talk some other time."
+    "#;
+    assert!(source_to_ctree(source).is_err());
+}
+
+#[test]
+#[ignore = "Waiting on issue #3"]
+fn test_source_to_ctree_orphan_nodes() {
+    // `end` is an orphan node. It is not reachable.
+    let source = r#"---
+    root: start
+    nodes:
+        start:
+            dialogue: "Hello, how are you?"
+        end:
+            dialogue: "Ok, let's talk some other time."
+    "#;
+    assert!(source_to_ctree(source).is_err());
 }
