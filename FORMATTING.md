@@ -30,6 +30,7 @@ YAML (YAML Ain't Markup Language) is a human friendly data format and serializat
       * link names are *strings*.
       * link dialogues are *strings*.
   * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : Orphan nodes must not exist.
+  * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Link keys must reference existing nodes.
 
 # Examples
 
