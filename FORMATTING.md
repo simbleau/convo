@@ -29,12 +29,12 @@ YAML (YAML Ain't Markup Language) is a human friendly data format and serializat
       * link values are *array elements*.
       * link names are *strings*.
       * link dialogues are *strings*.
-  * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : Orphan nodes must not exist.
-  * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Link keys must reference existing nodes.
+      * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Link keys must reference existing nodes.
+  * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : Nodes must not be orphans; Nodes must be the root element or linked to by a parent.
 
 # Examples
 
-You can find valid examples also in the [dialogue_files](../dialogue_files/) folder.
+You can find valid examples in the [dialogue_files](../dialogue_files/) folder.
 
 ## Good Examples
 
