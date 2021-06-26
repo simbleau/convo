@@ -275,4 +275,21 @@ fn test_source_to_ctree_orphan_nodes() {
             dialogue: "Ok, let's talk some other time."
     "#;
     assert!(source_to_ctree(source).is_err());
+
+    // `end` and `fork` are orphans because the root node (`start`) is a leaf node.
+    let source = r#"---
+    root: start
+    nodes:
+        fork:
+            dialogue: "I make sure no one is an orphan by being the parent to all."
+            links:
+                - start: "I link to start"
+                - end: "I link to the end"
+                - fork: "I even link to myself!"
+        start:
+            dialogue: "Hello, how are you?"
+        end:
+            dialogue: "Ok, let's talk some other time."
+    "#;
+    assert!(source_to_ctree(source).is_err());
 }
