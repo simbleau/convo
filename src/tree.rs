@@ -486,8 +486,12 @@ fn test_rewind() {
 
     tree.set_current_key("current").unwrap();
 
+    // Should error as root is not set
+    assert!(tree.rewind().is_err());
+
     // Test rewind
     assert_eq!("current", tree.current_key().unwrap());
+    tree.set_root_key("root").unwrap();
     tree.rewind().unwrap();
     assert_eq!("root", tree.current_key().unwrap());
 }
