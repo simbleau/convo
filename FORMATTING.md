@@ -11,6 +11,8 @@
     - [Example 3](#example-3)
     - [Example 4](#example-4)
     - [Example 5](#example-5)
+    - [Example 6](#example-6)
+    - [Example 7](#example-7)
 
 # About YAML Format
 
@@ -29,11 +31,12 @@ YAML (YAML Ain't Markup Language) is a human friendly data format and serializat
       * link values are *array elements*.
       * link names are *strings*.
       * link dialogues are *strings*.
-  * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : Orphan nodes must not exist.
+      * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Link keys must reference existing nodes.
+  * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : All nodes must be reachable; Nodes must be the root element or linked to by a parent.
 
 # Examples
 
-You can find valid examples also in the [dialogue_files](../dialogue_files/) folder.
+You can find valid examples in the [dialogue_files](../dialogue_files/) folder.
 
 ## Good Examples
 
@@ -130,4 +133,41 @@ nodes:
 ```
 Why is this a **bad** example?
 
-  * `end` is an orphan node. It is not traversible.
+  * `end` is an orphan node. It is not linked to and therefore not part of the hierarchy.
+
+### Example 6
+
+```yaml
+---
+root: start
+nodes:
+  fork:
+    dialogue: "I link to all nodes!"
+    links:
+      - start: "I link to start"
+      - end: "I link to end"
+      - fork: "I even link to myself!"
+  start:
+    dialogue: "Hello, how are you?"
+  end:
+    dialogue: "Ok, let's talk some other time."
+```
+Why is this a **bad** example?
+
+  * `end` and `fork` are unreachable nodes because the root node is `start`. 
+
+### Example 7
+
+```yaml
+---
+root: start
+nodes:
+  start:
+    dialogue: "I am the start node"
+    links:
+      - start: "I am valid and link to myself"
+      - not_a_real_key: "I do not link to a valid key"
+```
+Why is this a **bad** example?
+
+  * `not_a_real_key` is not a node that exists, e.g. invalid reference key. 

@@ -61,3 +61,16 @@ impl Link {
         from.links.push(link);
     }
 }
+
+#[cfg(test)]
+#[test]
+fn test_link() {
+    let mut start_node = Node::new("start", "The start node.");
+    let end_node = Node::new("end", "The end node.");
+
+    // Test link
+    let link_dialogue = "A simple link.";
+    Link::link(&mut start_node, &end_node, link_dialogue);
+    assert_eq!(1, start_node.links.len());
+    assert_eq!(link_dialogue, start_node.links.first().unwrap().dialogue);
+}

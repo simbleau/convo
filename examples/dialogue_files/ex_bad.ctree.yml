@@ -1,0 +1,26 @@
+# ===
+# Problems:
+# 1) `invalid_link` node contains an invalid key reference
+# 2) `invalid_dialogue` did not specify dialogue correctly
+# 3) `invalid_link` is not a real node key, e.g. does not exist
+# 4) `invalid_dialogue` is an orphan node (not reachable)
+# 5) `valid` is a leaf node but also the entry point (root node)
+# ===
+---
+root: valid
+nodes:
+
+  invalid_dialogue: "Dialogue like this is not correct!"
+  # Valid nodes
+  valid:
+    dialogue: "This is a totally valid node"
+  valid_with_link:
+    dialogue: "This is a totally valid node"
+    links:
+      - valid: "This links to a real node"
+      - invalid_link: "This links to a real node"
+  # Invalid nodes below
+  invalid_link:
+    dialogue: "This is valid dialogue"
+    links:
+      - not_a_key: "This references to a non-existant node key!"

@@ -141,3 +141,115 @@ fn link_to_yaml(link: &Link) -> Result<Yaml, TreeError> {
     );
     Ok(Yaml::Hash(map))
 }
+
+#[cfg(test)]
+#[test]
+fn test_export() {
+    // Test a minimum valid export
+    let mut tree = CTree::new();
+    let node = Node::new("start", "It's a bad day.");
+    tree.nodes.insert("start".to_owned(), node);
+    tree.set_root_key("start").unwrap();
+
+    assert!(export(&tree, "examples/dialogue_files/export.ctree.yml").is_ok());
+}
+
+#[test]
+fn test_export_path_exists() {
+    use crate::error::ExportError::IO;
+
+    // Make a valid tree
+    let mut tree = CTree::new();
+    let node = Node::new("start", "It's a bad day.");
+    tree.nodes.insert("start".to_owned(), node);
+    tree.set_root_key("start").unwrap();
+
+    // Should fail because file path is invalid
+    assert!(matches!(export(&tree, "/not/a/path").unwrap_err(), IO(_)));
+}
+
+#[test]
+fn test_ctree_to_source() {
+    // Test a minimum valid export
+    let mut tree = CTree::new();
+    let node = Node::new("start", "It's a bad day.");
+    tree.nodes.insert("start".to_owned(), node);
+    tree.set_root_key("start").unwrap();
+
+    let source = r#"---
+root: start
+nodes:
+  start:
+    dialogue: "It's a bad day.""#;
+
+    // Should be equal
+    assert_eq!(source, ctree_to_source(&tree).unwrap());
+}
+
+#[test]
+fn test_ctree_to_source_root_exists() {
+    use crate::error::ExportError::Tree;
+
+    // Should fail because root node is never set
+    let mut tree = CTree::new();
+    let node = Node::new("start", "It's a bad day.");
+    tree.nodes.insert("start".to_owned(), node);
+
+    assert!(matches!(ctree_to_source(&tree).unwrap_err(), Tree(_)));
+}
+
+#[test]
+fn test_ctree_to_source_nodes_exist() {
+    use crate::error::ExportError::Tree;
+
+    // Should fail because nodes do not exist
+    let mut tree = CTree::new();
+    unsafe { tree.set_root_key_unchecked("start") }
+
+    assert!(matches!(ctree_to_source(&tree).unwrap_err(), Tree(_)));
+}
+
+#[test]
+#[ignore = "Waiting on issue #3"]
+fn test_ctree_to_source_unreachable_nodes() {
+    use crate::error::ExportError::Tree;
+
+    // Should fail because `node2` is an orphan node. It has no parents or links to it.
+    let mut tree = CTree::new();
+    let node1 = Node::new("1", "It's a bad day.");
+    let node2 = Node::new("2", "It's a good day.");
+    tree.nodes.insert("1".to_owned(), node1);
+    tree.nodes.insert("2".to_owned(), node2);
+    tree.set_root_key("1").unwrap();
+
+    assert!(matches!(ctree_to_source(&tree).unwrap_err(), Tree(_)));
+
+    // This should fail because the root node is a leaf node, e.g. parent becomes unreachable
+    let mut tree = CTree::new();
+    let mut parent = Node::new("parent", "I am the parent.");
+    let child = Node::new("child", "I am the child.");
+    Link::link(&mut parent, &child, "I make sure no orphan nodes exist.");
+    tree.nodes.insert("parent".to_owned(), parent);
+    tree.nodes.insert("child".to_owned(), child);
+    tree.set_root_key("child").unwrap();
+
+    assert!(matches!(ctree_to_source(&tree).unwrap_err(), Tree(_)));
+}
+#[test]
+#[ignore = "Waiting on issue #10"]
+fn test_ctree_to_source_invalid_links() {
+    use crate::error::ExportError::Tree;
+
+    // Build basic tree
+    let mut tree = CTree::new();
+    let mut node = Node::new("root", "I am the only node.");
+    // Append an invalid link
+    let invalid_link = Link::new("invalid", "I am an invalid link");
+    node.links.push(invalid_link);
+    // Finish tree
+    tree.nodes.insert("root".to_owned(), node);
+    tree.set_root_key("root").unwrap();
+
+    // Should fail because invalid link exists
+    assert!(matches!(ctree_to_source(&tree).unwrap_err(), Tree(_)));
+}

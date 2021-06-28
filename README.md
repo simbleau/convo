@@ -11,7 +11,7 @@ A modern dialogue executor and tree parser using [YAML](https://yaml.org/).
 
 This crate is for building([ex](examples/building.rs)), importing/exporting([ex](examples/io.rs)), and walking([ex](examples/walking.rs)) dialogue trees.
 
-`convo` promises an emphasis on documentation and user-friendliness, but is also performant. All retrievals, searches, and side-effects to the conversation tree are in O(1) constant time.
+`convo` promises an emphasis on documentation and user-friendliness, but also performance. All retrievals, searches, and side-effects to the conversation tree are in O(1) constant time.
 
 # Sections
 

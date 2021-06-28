@@ -51,7 +51,7 @@ impl CTree {
     ///
     /// # Errors
     ///
-    /// * A [`ParseError`] will be returned if the source is not valid YAML data or if the data breaks validation rules.
+    /// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
     /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Examples
@@ -75,7 +75,7 @@ impl CTree {
     ///
     /// # Errors
     ///
-    /// * An [`ExportError`] will be returned if the file is unable to be saved or the tree is not in a saveable state because it breaks validation rules.
+    /// * An [`ExportError`] will be returned if the file is unable to be saved or the tree is not considered legal to export.
     /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Examples
@@ -347,7 +347,184 @@ fn test_try_from() {
 
 #[test]
 fn test_try_export() {
-    let tree = crate::parser::parse("examples/dialogue_files/ex_1.ctree.yml").unwrap();
-    let source = crate::exporter::ctree_to_source(&tree).unwrap();
-    println!("{}", source);
+    let mut tree = CTree::new();
+
+    // Should fail because validation checks fail
+    assert!(tree
+        .try_export("examples/dialogue_files/export.ctree.yml")
+        .is_err());
+
+    // Qualify the tree
+    let root_node = Node::new("root", "The only node.");
+    tree.nodes.insert("root".to_owned(), root_node);
+    tree.set_root_key("root").unwrap();
+
+    // Should pass because tree is valid
+    assert!(tree
+        .try_export("examples/dialogue_files/export.ctree.yml")
+        .is_ok());
+}
+
+#[test]
+fn test_root_key() {
+    let mut tree = CTree::new();
+
+    // Should be none because no root key has been set yet
+    assert!(tree.root_key().is_none());
+
+    unsafe { tree.set_root_key_unchecked("root") }
+
+    // Should be Some
+    assert_eq!("root", tree.root_key().unwrap());
+}
+
+#[test]
+fn test_root_node() {
+    let mut tree = CTree::new();
+
+    // Should be none because no root key has been set yet
+    assert!(tree.root_node().is_none());
+
+    // Should be None still as the node does not exist in the map
+    unsafe { tree.set_root_key_unchecked("root") }
+    assert!(tree.root_node().is_none());
+
+    // After insertion, it should exist
+    let root_node = Node::new("root", "A node.");
+    tree.nodes.insert("root".to_owned(), root_node);
+    assert!(tree.root_node().is_some());
+}
+
+#[test]
+fn test_set_root_key() {
+    let mut tree = CTree::new();
+
+    // Should fail because node does not exist in the map yet
+    assert!(tree.set_root_key("root").is_err());
+
+    // Should pass because node exists
+    let root_node = Node::new("root", "Anode.");
+    tree.nodes.insert("root".to_owned(), root_node);
+    assert!(tree.set_root_key("root").is_ok());
+
+    // Ensure root key was set
+    assert_eq!("root", tree.root_key().unwrap());
+}
+
+#[test]
+fn test_set_root_key_unchecked() {
+    let mut tree = CTree::new();
+    unsafe { tree.set_root_key_unchecked("root") }
+
+    // Ensure root key was set
+    assert_eq!("root", tree.root_key().unwrap());
+}
+
+#[test]
+fn test_current_key() {
+    let mut tree = CTree::new();
+
+    // Should be none because no current key has been set yet
+    assert!(tree.current_key().is_none());
+
+    unsafe { tree.set_current_key_unchecked("current") }
+
+    // Should be Some
+    assert_eq!("current", tree.current_key().unwrap());
+}
+
+#[test]
+fn test_current_node() {
+    let mut tree = CTree::new();
+
+    // Should be none because no current key has been set yet
+    assert!(tree.current_node().is_none());
+
+    // Should be None still as the node does not exist in the map
+    unsafe { tree.set_current_key_unchecked("current") }
+    assert!(tree.current_node().is_none());
+
+    // After insertion, it should exist
+    let current_node = Node::new("current", "A node.");
+    tree.nodes.insert("current".to_owned(), current_node);
+    assert!(tree.current_node().is_some());
+}
+
+#[test]
+fn test_set_current_key() {
+    let mut tree = CTree::new();
+
+    // Should fail because node does not exist in the map yet
+    assert!(tree.set_current_key("current").is_err());
+
+    // Should pass because node exists
+    let current_node = Node::new("current", "A node.");
+    tree.nodes.insert("current".to_owned(), current_node);
+    assert!(tree.set_current_key("current").is_ok());
+
+    // Ensure current key was set
+    assert_eq!("current", tree.current_key().unwrap());
+}
+
+#[test]
+fn test_set_current_key_unchecked() {
+    let mut tree = CTree::new();
+    unsafe { tree.set_current_key_unchecked("current") }
+
+    // Ensure current key was set
+    assert_eq!("current", tree.current_key().unwrap());
+}
+
+#[test]
+fn test_rewind() {
+    // Set up tree with a root and additional node
+    let mut tree = CTree::new();
+    let root_node = Node::new("root", "The root node.");
+    let current_node = Node::new("current", "A node.");
+    tree.nodes.insert("root".to_owned(), root_node);
+    tree.nodes.insert("current".to_owned(), current_node);
+
+    tree.set_current_key("current").unwrap();
+
+    // Should error as root is not set
+    assert!(tree.rewind().is_err());
+
+    // Test rewind
+    assert_eq!("current", tree.current_key().unwrap());
+    tree.set_root_key("root").unwrap();
+    tree.rewind().unwrap();
+    assert_eq!("root", tree.current_key().unwrap());
+}
+
+#[test]
+fn test_rewind_unchecked() {
+    // Set up tree with a root and additional node
+    let mut tree = CTree::new();
+    let root_node = Node::new("root", "The root node.");
+    let current_node = Node::new("current", "A node.");
+    tree.nodes.insert("root".to_owned(), root_node);
+    tree.nodes.insert("current".to_owned(), current_node);
+
+    tree.set_current_key("current").unwrap();
+
+    // Test rewind
+    assert_eq!("current", tree.current_key().unwrap());
+    unsafe { tree.rewind_unchecked() }
+    assert!(tree.root_node().is_none());
+}
+
+#[test]
+fn test_reset() {
+    // Set up tree with a root and additional node
+    let mut tree = CTree::new();
+    let root_node = Node::new("root", "The root node.");
+    tree.nodes.insert("root".to_owned(), root_node);
+    tree.set_root_key("root").unwrap();
+
+    tree.reset();
+
+    // Test reset
+    assert_eq!(0, tree.nodes.len());
+    assert!(tree.root_node().is_none());
+    assert!(tree.current_node().is_none());
 }
