@@ -1,4 +1,4 @@
-//! A family of related errors when working with [`crate`].
+//! A family of related errors when working with [`convo`][`crate`].
 
 /// An [`ExportError`] is a category of errors returned by exporter functions that returns [`Result`]s.
 #[derive(Debug)]
