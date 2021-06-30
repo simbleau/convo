@@ -1,4 +1,5 @@
-use std::{collections::HashMap, path::Path};
+use indexmap::IndexMap;
+use std::path::Path;
 
 use crate::{
     error::{ExportError, ParseError, TreeError},
@@ -10,7 +11,7 @@ use crate::{
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub struct CTree {
     /// The nodes in this conversation tree. Each [`Node`] is uniquely indexable by its [`Node#key`][`Node#structfield.key`].
-    pub nodes: HashMap<String, Node>,
+    pub nodes: IndexMap<String, Node>,
 
     /// The key of the root node. Can be [`None`]. If it is [`Some`], it is guaranteed to index an existing [`Node`] in [`CTree#nodes`][`CTree#structfield.nodes`].
     root_key: Option<String>,
@@ -36,7 +37,7 @@ impl CTree {
     /// ```
     pub fn new() -> Self {
         CTree {
-            nodes: HashMap::<String, Node>::new(),
+            nodes: IndexMap::<String, Node>::new(),
             root_key: None,
             current_key: None,
         }
