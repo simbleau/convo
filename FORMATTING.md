@@ -1,7 +1,10 @@
 # Sections
 - [Sections](#sections)
 - [About YAML Format](#about-yaml-format)
+- [File extension](#file-extension)
 - [Validation Rules](#validation-rules)
+  - [Exporting](#exporting)
+  - [Importing, Parsing](#importing-parsing)
 - [Examples](#examples)
   - [Good Examples](#good-examples)
     - [Example 1](#example-1)
@@ -18,20 +21,35 @@
 
 YAML (YAML Ain't Markup Language) is a human friendly data format and serialization standard. Read more about YAML format [here](https://yaml.org/).
 
+# File extension
+
+The conventional file extension for convo files is `*.convo.yml`.
+
 # Validation Rules
 
+You can expect an error to be thrown when trying to export or import `*.convo.yml` files if the following validation rules have not been satisfied. You will receive verbose error information on failure, but for comprehension, the rules are listed below in full.
+
+## Exporting
+  * The `Tree` must have a root key set
+  * The `Tree#nodes` must contain at least 1 node.
+  * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Links must all reference existing nodes.
+  * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : All nodes must be reachable; Nodes must be the root element or linked to by a parent.
+
+## Importing, Parsing
   * YAML must contain a top-level element called `root` which is a *string*, which specifies the entry point node key.
   * YAML must contain a top-level element called `nodes` which is a *hash*, which specifies the map of nodes.
   * `nodes` must contain at least 1 node.
   * `nodes` is a *hash*.
   * Node keys are *strings*.
   * Node values are *hashes*.
-    * Node data must contain a `dialogue` key which stores a *string* value.
+    * Node must contain a `dialogue` key and/or a `links` key.
+    * If node data contains a `dialogue` :
+      * node dialogue value is a *string* value.
     * If node data contains a `links` :
-      * link values are *array elements*.
-      * link names are *strings*.
-      * link dialogues are *strings*.
-      * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Link keys must reference existing nodes.
+      * node link values are *array elements*.
+      * node link keys are *strings*.
+      * node link values are *strings*.
+      * **Future ([#10](https://github.com/simbleau/convo/issues/10))** : Link keys must all reference existing nodes.
   * **Future ([#3](https://github.com/simbleau/convo/issues/3))** : All nodes must be reachable; Nodes must be the root element or linked to by a parent.
 
 # Examples
