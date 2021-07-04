@@ -34,21 +34,20 @@ The intent is to safely import and export conversation trees, as well as walk co
 
 # State
 
-`convo` is in development. Right now only the building blocks are laid and the project is usable. Future releases will follow [SemVer compatibility](https://doc.rust-lang.org/cargo/reference/semver.html).
+`convo` is usable and in active development. Future releases will follow [SemVer compatibility](https://doc.rust-lang.org/cargo/reference/semver.html).
 
 # Using convo
 
 The easiest way to use convo is by adding the lone dependency to your `Cargo.toml` file:
 
 ```toml
-convo = "0.0.0" # Not released
+convo = "0.1.0"
 ```
 
 # Getting Started
 
 ## Terminology
 
-(Names subject to change per [#4](https://github.com/simbleau/convo/issues/4))
   * **Tree** - the parent container for a conversation tree.
   * **Node** - a node in a conversation tree which acts as a fork of decisions by wrapping prompting dialogue and a list of path options (called `Link`s).
   * **Link** - a uni-directional path to a [`Node`].
