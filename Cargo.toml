@@ -1,7 +1,7 @@
 [package]
 name = "convo"
 description = "A modern dialogue executor and tree parser using YAML, focusing on ease-of-use and speed."
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Spencer Imbleau <spencer@imbleau.com>", "Thomas Houtart <thomas.houtart98@gmail.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
