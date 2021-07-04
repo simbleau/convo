@@ -8,5 +8,5 @@ jobs:
     - rust: nightly
   fast_finish: true
 script:
-  - cargo run --example building
-  - cargo run --example io
+  - cargo build --verbose --workspace
+  - cargo test --verbose --workspace
