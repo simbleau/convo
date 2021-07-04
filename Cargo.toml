@@ -11,6 +11,11 @@ readme = "README.md"
 repository = "https://github.com/rust-lang/cargo"
 keywords = ["dialogue", "conversation", "convo", "tree", "executor", "parser", "yaml", "yml", "node", "link"]
 categories = ["data-structures", "game-development", "parser-implementations", "text-processing"]
+exclude = [
+    "assets/",
+    "examples/",
+    "tests/",
+]
 
 [dev-dependencies]
 text_io = "0.1.8"
