@@ -24,8 +24,8 @@ use yaml_rust::{yaml, Yaml, YamlEmitter};
 /// # Examples
 ///
 /// ```
-/// use convo::{parser, exporter};
-/// let tree = parser::parse("examples/dialogue_files/ex_min.convo.yml").unwrap();
+/// use convo::{importer, exporter};
+/// let tree = importer::import("examples/dialogue_files/ex_min.convo.yml").unwrap();
 /// // Make a copy of the file
 /// exporter::export(&tree, "examples/dialogue_files/export.convo.yml").unwrap();
 /// ```
@@ -56,7 +56,7 @@ where
 /// # Examples
 ///
 /// ```
-/// use convo::{parser, exporter};
+/// use convo::{importer, exporter};
 /// let source = r#"---
 /// root: start
 /// nodes:
@@ -64,7 +64,7 @@ where
 ///     dialogue: I am a recursive node.
 ///     links:
 ///       - start: Recurse!"#;
-/// let tree = parser::source_to_tree(source).unwrap();
+/// let tree = importer::source_to_tree(source).unwrap();
 /// let source2 = exporter::tree_to_source(&tree).unwrap();
 /// assert_eq!(source, source2);
 /// ```
@@ -195,7 +195,7 @@ fn test_tree_to_source_root_exists() {
 
     assert!(matches!(
         tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Tree(_)
+        crate::error::ExportError::Validation(_)
     ));
 }
 
@@ -207,7 +207,7 @@ fn test_tree_to_source_nodes_exist() {
 
     assert!(matches!(
         tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Tree(_)
+        crate::error::ExportError::Validation(_)
     ));
 }
 
@@ -224,7 +224,7 @@ fn test_tree_to_source_unreachable_nodes() {
 
     assert!(matches!(
         tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Tree(_)
+        crate::error::ExportError::Validation(_)
     ));
 
     // This should fail because the root node is a leaf node, e.g. parent becomes unreachable
@@ -238,7 +238,7 @@ fn test_tree_to_source_unreachable_nodes() {
 
     assert!(matches!(
         tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Tree(_)
+        crate::error::ExportError::Validation(_)
     ));
 }
 #[test]
@@ -257,6 +257,6 @@ fn test_tree_to_source_invalid_links() {
     // Should fail because invalid link exists
     assert!(matches!(
         tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Tree(_)
+        crate::error::ExportError::Validation(_)
     ));
 }

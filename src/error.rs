@@ -9,7 +9,7 @@ pub enum ExportError {
     Emit(yaml_rust::EmitError),
     /// An error caused when a tree is not considered legal to export.
     /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
-    Tree(TreeError),
+    Validation(TreeError),
 }
 impl From<std::io::Error> for ExportError {
     fn from(item: std::io::Error) -> Self {
@@ -23,36 +23,36 @@ impl From<yaml_rust::EmitError> for ExportError {
 }
 impl From<TreeError> for ExportError {
     fn from(item: TreeError) -> Self {
-        ExportError::Tree(item)
+        ExportError::Validation(item)
     }
 }
 
-/// A [`ParseError`] is a category of errors returned by parser functions that returns [`Result`]s.
+/// A [`ImportError`] is a category of errors returned by parser functions that returns [`Result`]s.
 #[derive(Debug)]
-pub enum ParseError {
-    /// An error caused when IO issues occur during parsing.
+pub enum ImportError {
+    /// An error caused when IO issues occur during importing.
     IO(std::io::Error),
     /// An error caused when YAML is unable to be scanned in.
     Scan(yaml_rust::ScanError),
     /// An error caused when a tree is not considered legal when parsing.
     /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
-    Tree(TreeError),
-    /// An error caused when the target parsing content contains multiple YAML documents.
+    Validation(TreeError),
+    /// An error caused when the target content contains multiple YAML documents.
     MultipleDocumentsProvided(),
 }
-impl From<std::io::Error> for ParseError {
+impl From<std::io::Error> for ImportError {
     fn from(item: std::io::Error) -> Self {
-        ParseError::IO(item)
+        ImportError::IO(item)
     }
 }
-impl From<yaml_rust::ScanError> for ParseError {
+impl From<yaml_rust::ScanError> for ImportError {
     fn from(item: yaml_rust::ScanError) -> Self {
-        ParseError::Scan(item)
+        ImportError::Scan(item)
     }
 }
-impl From<TreeError> for ParseError {
+impl From<TreeError> for ImportError {
     fn from(item: TreeError) -> Self {
-        ParseError::Tree(item)
+        ImportError::Validation(item)
     }
 }
 

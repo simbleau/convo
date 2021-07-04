@@ -2,7 +2,7 @@ use indexmap::IndexMap;
 use std::path::Path;
 
 use crate::{
-    error::{ExportError, ParseError, TreeError},
+    error::{ExportError, ImportError, TreeError},
     exporter,
     node::Node,
 };
@@ -52,7 +52,7 @@ impl Tree {
     ///
     /// # Errors
     ///
-    /// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+    /// * A [`ImportError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
     /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Examples
@@ -68,8 +68,8 @@ impl Tree {
     ///       - start: Recurse!"#;
     /// let tree = Tree::try_from(source).unwrap();
     /// ```
-    pub fn try_from(source: &str) -> Result<Self, ParseError> {
-        Ok(crate::parser::source_to_tree(source)?)
+    pub fn try_from(source: &str) -> Result<Self, ImportError> {
+        Ok(crate::importer::source_to_tree(source)?)
     }
 
     /// Try to export a [`Tree`] to a file. The preferred file extension is `*.convo.yml`.

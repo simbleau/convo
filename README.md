@@ -30,7 +30,7 @@ This crate is for building([ex](examples/building.rs)), importing/exporting([ex]
 
 # Motivation
 
-The intent is to safely parse and export conversation trees, as well as walk complex conversations easily and efficiently. Conversations resemble a traditional dialogue tree model, and can be cyclic. YAML format makes creating dialogue trees intuitive and easy, even without a formal editor (but a GUI editor will come eventually).
+The intent is to safely import and export conversation trees, as well as walk complex conversations easily and efficiently. Conversations resemble a traditional dialogue tree model, and can be cyclic. YAML format makes creating dialogue trees intuitive and easy, even without a formal editor (but a GUI editor will come eventually).
 
 # State
 

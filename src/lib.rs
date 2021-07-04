@@ -10,7 +10,7 @@
 
 pub mod error;
 pub mod exporter;
-pub mod parser;
+pub mod importer;
 
 mod link;
 mod node;

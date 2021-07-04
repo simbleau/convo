@@ -1,7 +1,7 @@
 //! A family of functions which parse YAML into [`Tree`]s.
 
 use crate::{
-    error::{ParseError, TreeError},
+    error::{ImportError, TreeError},
     link::Link,
     node::Node,
     tree::Tree,
@@ -10,7 +10,7 @@ use crate::{
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};
 
-/// Try to returns a [`Tree`] which is generated from parsing a file.
+/// Try to returns a [`Tree`] which is generated from importing a file.
 ///
 /// # Arguments
 ///
@@ -19,16 +19,16 @@ use yaml_rust::{Yaml, YamlLoader};
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// * An [`ImportError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
 /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
 /// ```
-/// use convo::parser;
-/// let tree = parser::parse("examples/dialogue_files/ex_min.convo.yml").unwrap();
+/// use convo::importer;
+/// let tree = importer::import("examples/dialogue_files/ex_min.convo.yml").unwrap();
 /// ```
-pub fn parse<P>(path: P) -> Result<Tree, ParseError>
+pub fn import<P>(path: P) -> Result<Tree, ImportError>
 where
     P: AsRef<Path>,
 {
@@ -48,13 +48,13 @@ where
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// * A [`ImportError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
 /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
 /// ```
-/// use convo::parser;
+/// use convo::importer;
 /// let source = r#"
 /// ---
 /// root: start
@@ -64,13 +64,13 @@ where
 ///         links:
 ///             - start: Recurse!
 /// "#;
-/// let tree = parser::source_to_tree(source).unwrap();
+/// let tree = importer::source_to_tree(source).unwrap();
 /// ```
-pub fn source_to_tree(source: &str) -> Result<Tree, ParseError> {
+pub fn source_to_tree(source: &str) -> Result<Tree, ImportError> {
     // Parse the YAML
     let docs = YamlLoader::load_from_str(source)?;
     if docs.len() != 1 {
-        return Err(ParseError::MultipleDocumentsProvided());
+        return Err(ImportError::MultipleDocumentsProvided());
     }
     let yaml = &docs[0];
 
@@ -80,7 +80,7 @@ pub fn source_to_tree(source: &str) -> Result<Tree, ParseError> {
     Ok(tree)
 }
 
-fn get_file_source<P>(path: P) -> Result<String, ParseError>
+fn get_file_source<P>(path: P) -> Result<String, ImportError>
 where
     P: AsRef<Path>,
 {
@@ -92,7 +92,7 @@ where
     Ok(buf)
 }
 
-fn yaml_to_tree(yaml: &Yaml) -> Result<Tree, ParseError> {
+fn yaml_to_tree(yaml: &Yaml) -> Result<Tree, ImportError> {
     // This needs some major cleanup
 
     let root_key = yaml["root"].as_str().ok_or_else(|| {
@@ -129,7 +129,7 @@ fn yaml_to_tree(yaml: &Yaml) -> Result<Tree, ParseError> {
     Ok(tree)
 }
 
-fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
+fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ImportError> {
     // Unwrap name
     let key = yaml_key.as_str().ok_or_else(|| {
         TreeError::Validation(format!("YAML key is not a string: `{:?}`", yaml_key))
@@ -163,7 +163,7 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
     Ok(node)
 }
 
-fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
+fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ImportError> {
     // Unwrap link array
     let links = yaml.as_vec().ok_or_else(|| {
         TreeError::Validation(format!("YAML link data is not an array: '{:?}'", yaml))
@@ -197,12 +197,12 @@ fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
 
 #[cfg(test)]
 #[test]
-fn test_parse() {
+fn test_import() {
     let bad_file = "examples/dialogue_files/ex_bad.convo.yml";
-    assert!(parse(bad_file).is_err());
+    assert!(import(bad_file).is_err());
 
     let good_file = "examples/dialogue_files/ex_min.convo.yml";
-    assert!(parse(good_file).is_ok());
+    assert!(import(good_file).is_ok());
 }
 
 #[test]

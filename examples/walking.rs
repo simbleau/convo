@@ -8,17 +8,17 @@ use std::{
 use convo::Tree;
 
 fn main() {
-    // Select Tree file path
-    let path = Path::new("examples/dialogue_files/ex_1.convo.yml");
-    println!("Selected file: {}", path.to_str().unwrap());
+    // Select convo file to walk
+    let path_in = Path::new("examples/dialogue_files/ex_1.convo.yml");
+    println!("Selected input path: {}", path_in.to_str().unwrap());
 
-    //Parse path to Tree
-    print!("Parsing...");
-    let tree = convo::parser::parse(path).unwrap();
+    // Import convo file
+    print!("Importing...");
+    let tree = convo::importer::import(path_in).unwrap();
     println!("Complete.");
-    println!("Starting...\nYou may enter 'Q' to quit anytime.\n");
 
     // Walk the Tree
+    println!("Starting...\nYou may enter 'Q' to quit anytime.\n");
     walk(tree);
 }
 
