@@ -9,7 +9,7 @@
 
 A modern dialogue executor and tree parser using [YAML](https://yaml.org/). 
 
-This crate is for building([ex](examples/building.rs)), importing/exporting([ex](examples/io.rs)), and walking([ex](examples/walking.rs)) dialogue trees.
+This crate is for building([ex](https://github.com/simbleau/convo/blob/main/examples/building.rs)), importing/exporting([ex](https://github.com/simbleau/convo/blob/main/examples/io.rs)), and walking([ex](https://github.com/simbleau/convo/blob/main/examples/walking.rs)) dialogue trees.
 
 `convo` promises an emphasis on documentation and user-friendliness, but also performance. All retrievals, searches, and side-effects to the conversation tree are in O(1) constant time.
 
@@ -55,9 +55,9 @@ convo = "0.1.0"
 ## Examples
 
 Check out these important examples:
-  * [Building a conversation `Tree` imperatively](examples/building.rs)
-  * [Importing/Exporting `*.convo.yml` files](examples/io.rs)
-  * [Walking a conversation `Tree`](examples/walking.rs)
+  * [Building a conversation `Tree` imperatively](https://github.com/simbleau/convo/blob/main/examples/building.rs)
+  * [Importing/Exporting `*.convo.yml` files](https://github.com/simbleau/convo/blob/main/examples/io.rs)
+  * [Walking a conversation `Tree`](https://github.com/simbleau/convo/blob/main/examples/walking.rs)
 
 ## Formatting Rules
 
