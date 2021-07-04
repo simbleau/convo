@@ -188,32 +188,32 @@ nodes:
 
 #[test]
 fn test_tree_to_source_root_exists() {
+    use crate::error::ExportError::Validation;
+
     // Should fail because root node is never set
     let mut tree = Tree::new();
     let node = Node::new("start", "It's a bad day.");
     tree.nodes.insert("start".to_owned(), node);
 
-    assert!(matches!(
-        tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Validation(_)
-    ));
+    assert!(matches!(tree_to_source(&tree).unwrap_err(), Validation(_)));
 }
 
 #[test]
 fn test_tree_to_source_nodes_exist() {
+    use crate::error::ExportError::Validation;
+
     // Should fail because nodes do not exist
     let mut tree = Tree::new();
     unsafe { tree.set_root_key_unchecked("start") }
 
-    assert!(matches!(
-        tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Validation(_)
-    ));
+    assert!(matches!(tree_to_source(&tree).unwrap_err(), Validation(_)));
 }
 
 #[test]
 #[ignore = "Waiting on issue #3"]
 fn test_tree_to_source_unreachable_nodes() {
+    use crate::error::ExportError::Validation;
+
     // Should fail because `node2` is an orphan node. It has no parents or links to it.
     let mut tree = Tree::new();
     let node1 = Node::new("1", "It's a bad day.");
@@ -222,10 +222,7 @@ fn test_tree_to_source_unreachable_nodes() {
     tree.nodes.insert("2".to_owned(), node2);
     tree.set_root_key("1").unwrap();
 
-    assert!(matches!(
-        tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Validation(_)
-    ));
+    assert!(matches!(tree_to_source(&tree).unwrap_err(), Validation(_)));
 
     // This should fail because the root node is a leaf node, e.g. parent becomes unreachable
     let mut tree = Tree::new();
@@ -236,14 +233,13 @@ fn test_tree_to_source_unreachable_nodes() {
     tree.nodes.insert("child".to_owned(), child);
     tree.set_root_key("child").unwrap();
 
-    assert!(matches!(
-        tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Validation(_)
-    ));
+    assert!(matches!(tree_to_source(&tree).unwrap_err(), Validation(_)));
 }
 #[test]
 #[ignore = "Waiting on issue #10"]
 fn test_tree_to_source_invalid_links() {
+    use crate::error::ExportError::Validation;
+
     // Build basic tree
     let mut tree = Tree::new();
     let mut node = Node::new("root", "I am the only node.");
@@ -255,8 +251,5 @@ fn test_tree_to_source_invalid_links() {
     tree.set_root_key("root").unwrap();
 
     // Should fail because invalid link exists
-    assert!(matches!(
-        tree_to_source(&tree).unwrap_err(),
-        crate::error::ExportError::Validation(_)
-    ));
+    assert!(matches!(tree_to_source(&tree).unwrap_err(), Validation(_)));
 }

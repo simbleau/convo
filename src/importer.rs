@@ -219,13 +219,15 @@ fn test_source_to_tree() {
 
 #[test]
 fn test_source_to_tree_root_exists() {
+    use crate::error::ImportError::Validation;
+
     // Invalid: YAML must contain a top-level element called `root`.
     let source = r#"---
     nodes:
         start:
             dialogue: "It's a bad day."
     "#;
-    assert!(source_to_tree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 
     // Invalid: YAML must contain a top-level element called `root` which points to a real node
     let source = r#"---
@@ -234,21 +236,25 @@ fn test_source_to_tree_root_exists() {
         start:
             dialogue: "It's a bad day."
     "#;
-    assert!(source_to_tree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
 fn test_source_to_tree_nodes_exist() {
+    use crate::error::ImportError::Validation;
+
     // Invalid: `nodes` must contain at least 1 node.
     let source = r#"---
     root: start
     nodes:
     "#;
-    assert!(source_to_tree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
 fn test_source_to_tree_attributes() {
+    use crate::error::ImportError::Validation;
+
     // `start` does not contain dialogue.
     let source = r#"---
     root: start
@@ -259,12 +265,14 @@ fn test_source_to_tree_attributes() {
         end:
             dialogue: "Ok, let's talk some other time."
     "#;
-    assert!(source_to_tree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
 #[ignore = "Waiting on issue #3"]
 fn test_source_to_tree_unreachable_nodes() {
+    use crate::error::ImportError::Validation;
+
     // `end` is an orphan node. It is not reachable.
     let source = r#"---
     root: start
@@ -274,7 +282,7 @@ fn test_source_to_tree_unreachable_nodes() {
         end:
             dialogue: "Ok, let's talk some other time."
     "#;
-    assert!(source_to_tree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 
     // `end` and `fork` are orphans because the root node (`start`) is a leaf node.
     let source = r#"---
@@ -291,12 +299,14 @@ fn test_source_to_tree_unreachable_nodes() {
         end:
             dialogue: "Ok, let's talk some other time."
     "#;
-    assert!(source_to_tree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
 #[ignore = "Waiting on issue #10"]
 fn test_source_to_tree_invalid_links() {
+    use crate::error::ImportError::Validation;
+
     // `not_a_real_key` is an invalid reference key.
     let source = r#"---
     root: start
@@ -307,5 +317,6 @@ fn test_source_to_tree_invalid_links() {
                 - start: "I am valid and link to myself"
                 - not_a_real_key: "I do not link to a valid key"
     "#;
-    assert!(source_to_tree(source).is_err());
+
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
