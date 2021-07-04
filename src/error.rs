@@ -60,14 +60,14 @@ impl From<TreeError> for ParseError {
 /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 #[derive(Debug)]
 pub enum TreeError {
-    /// An error caused when a [`crate::CTree`] is missing a root [`crate::Node`].
-    /// See also: [`crate::CTree#root`][`crate::CTree#structfield.root].
+    /// An error caused when a [`crate::Tree`] is missing a root [`crate::Node`].
+    /// See also: [`crate::Tree#root`][`crate::Tree#structfield.root].
     RootNotSet(),
-    /// An error caused when a [`crate::CTree`] is missing a current [`crate::Node`].
-    /// See also: [`crate::CTree#current`][`crate::CTree#structfield.current].
+    /// An error caused when a [`crate::Tree`] is missing a current [`crate::Node`].
+    /// See also: [`crate::Tree#current`][`crate::Tree#structfield.current].
     CurrentNotSet(),
-    /// An error caused when a [`crate::CTree`] is missing a necessary [`crate::Node`].
+    /// An error caused when a [`crate::Tree`] is missing a necessary [`crate::Node`].
     NodeDNE(String),
-    /// An error caused when validating a family of rules a [`crate::CTree`] must obey.
+    /// An error caused when validating a family of rules a [`crate::Tree`] must obey.
     Validation(String),
 }

@@ -7,43 +7,43 @@ use crate::{
     node::Node,
 };
 
-/// A [`CTree`] is the parent container for a conversation tree. It is a walkable structure which follows the form of a human conversation.
+/// A [`Tree`] is the parent container for a conversation tree. It is a walkable structure which follows the form of a human conversation.
 #[derive(Debug, Clone, Eq, PartialEq)]
-pub struct CTree {
+pub struct Tree {
     /// The nodes in this conversation tree. Each [`Node`] is uniquely indexable by its [`Node#key`][`Node#structfield.key`].
     pub nodes: IndexMap<String, Node>,
 
-    /// The key of the root node. Can be [`None`]. If it is [`Some`], it is guaranteed to index an existing [`Node`] in [`CTree#nodes`][`CTree#structfield.nodes`].
+    /// The key of the root node. Can be [`None`]. If it is [`Some`], it is guaranteed to index an existing [`Node`] in [`Tree#nodes`][`Tree#structfield.nodes`].
     root_key: Option<String>,
 
-    /// The key of the current node. Can be [`None`]. If it is [`Some`], it is guaranteed to index an existing [`Node`] in [`CTree#nodes`][`CTree#structfield.nodes`].
+    /// The key of the current node. Can be [`None`]. If it is [`Some`], it is guaranteed to index an existing [`Node`] in [`Tree#nodes`][`Tree#structfield.nodes`].
     current_key: Option<String>,
 }
 
-impl Default for CTree {
+impl Default for Tree {
     fn default() -> Self {
-        CTree::new()
+        Tree::new()
     }
 }
 
-impl CTree {
-    /// Returns a [`CTree`] with no nodes.
+impl Tree {
+    /// Returns a [`Tree`] with no nodes.
     ///
     /// # Examples
     ///
     /// ```
-    /// use convo::CTree;
-    /// let tree = CTree::new();
+    /// use convo::Tree;
+    /// let tree = Tree::new();
     /// ```
     pub fn new() -> Self {
-        CTree {
+        Tree {
             nodes: IndexMap::<String, Node>::new(),
             root_key: None,
             current_key: None,
         }
     }
 
-    /// Try to returns a [`CTree`] which is generated from parsing a string slice.
+    /// Try to returns a [`Tree`] which is generated from parsing a string slice.
     ///
     /// # Arguments
     ///
@@ -58,7 +58,7 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::CTree;
+    /// use convo::Tree;
     /// let source = r#"---
     /// root: start
     /// nodes:
@@ -66,13 +66,13 @@ impl CTree {
     ///     dialogue: I am a recursive node.
     ///     links:
     ///       - start: Recurse!"#;
-    /// let tree = CTree::try_from(source).unwrap();
+    /// let tree = Tree::try_from(source).unwrap();
     /// ```
     pub fn try_from(source: &str) -> Result<Self, ParseError> {
-        Ok(crate::parser::source_to_ctree(source)?)
+        Ok(crate::parser::source_to_tree(source)?)
     }
 
-    /// Try to export a [`CTree`] to a file. The preferred file extension is `*.ctree.yml`.
+    /// Try to export a [`Tree`] to a file. The preferred file extension is `*.convo.yml`.
     ///
     /// # Errors
     ///
@@ -82,13 +82,13 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_key = "root";
     /// let root_node = Node::new(root_key, "The only node.");
     /// tree.nodes.insert(root_key.to_owned(), root_node);
     /// tree.set_root_key(root_key).unwrap();
-    /// assert!(tree.try_export("examples/dialogue_files/export.ctree.yml").is_ok());
+    /// assert!(tree.try_export("examples/dialogue_files/export.convo.yml").is_ok());
     /// ```
     pub fn try_export<P>(&self, path: P) -> Result<(), ExportError>
     where
@@ -103,8 +103,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// unsafe { tree.set_root_key_unchecked("root"); }
     /// assert_eq!("root", tree.root_key().unwrap());
     /// ```
@@ -118,8 +118,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_og = Node::new("root", "The only node.");
     /// let root_copy = root_og.clone();
     /// tree.nodes.insert("root".to_owned(), root_copy);
@@ -133,11 +133,11 @@ impl CTree {
     // Sets the root node to a new node defined by a key
     // Also sets current to root node if current is None
 
-    /// Try to set the root node key for a [`CTree`]. If [`CTree#current`][`CTree#structfield.current`] is [`None`], this will automatically be dually initialized to the root key. If you want to set the root node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`set_root_key_unchecked`][`CTree#method.set_root_key_unchecked`].
+    /// Try to set the root node key for a [`Tree`]. If [`Tree#current`][`Tree#structfield.current`] is [`None`], this will automatically be dually initialized to the root key. If you want to set the root node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`set_root_key_unchecked`][`Tree#method.set_root_key_unchecked`].
     ///
     /// # Arguments
     ///
-    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`CTree#nodes`][`CTree#structfield.nodes`].
+    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`Tree#nodes`][`Tree#structfield.nodes`].
     ///
     /// # Errors
     ///
@@ -146,8 +146,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_node = Node::new("root", "The only node.");
     /// tree.nodes.insert("root".to_owned(), root_node);
     /// tree.set_root_key("root").unwrap();
@@ -165,17 +165,17 @@ impl CTree {
         Ok(())
     }
 
-    /// Set the root node key for a [`CTree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules). Unlike [`set_root_key`][`CTree#method.set_root_key`], this method will **not** incur side effects to [`CTree#current`][`CTree#structfield.current`] in any way.
+    /// Set the root node key for a [`Tree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules). Unlike [`set_root_key`][`Tree#method.set_root_key`], this method will **not** incur side effects to [`Tree#current`][`Tree#structfield.current`] in any way.
     ///
     /// # Arguments
     ///
-    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`CTree#nodes`][`CTree#structfield.nodes`].
+    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`Tree#nodes`][`Tree#structfield.nodes`].
     ///
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_node = Node::new("root", "The only node.");
     /// tree.nodes.insert("root".to_owned(), root_node);
     /// unsafe { tree.set_root_key_unchecked("root"); }
@@ -190,8 +190,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// unsafe { tree.set_current_key_unchecked("x"); }
     /// assert_eq!("x", tree.current_key().unwrap());
     /// ```
@@ -205,8 +205,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_og = Node::new("x", "Some node.");
     /// let root_copy = root_og.clone();
     /// tree.nodes.insert("x".to_owned(), root_copy);
@@ -217,11 +217,11 @@ impl CTree {
         self.nodes.get(self.current_key.as_ref()?)
     }
 
-    /// Try to set the current node key for a [`CTree`]. If you want to set the current node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`set_current_key_unchecked`][`CTree#method.set_current_key_unchecked`].
+    /// Try to set the current node key for a [`Tree`]. If you want to set the current node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`set_current_key_unchecked`][`Tree#method.set_current_key_unchecked`].
     ///
     /// # Arguments
     ///
-    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`CTree#nodes`][`CTree#structfield.nodes`].
+    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`Tree#nodes`][`Tree#structfield.nodes`].
     ///
     /// # Errors
     ///
@@ -230,8 +230,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let current_node = Node::new("x", "Some node.");
     /// tree.nodes.insert("x".to_owned(), current_node);
     /// tree.set_current_key("x").unwrap();
@@ -246,17 +246,17 @@ impl CTree {
         Ok(())
     }
 
-    /// Set the current node key for a [`CTree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
+    /// Set the current node key for a [`Tree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Arguments
     ///
-    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`CTree#nodes`][`CTree#structfield.nodes`].
+    /// * `node_key` - A string slice that holds a unique identifier which indexes a [`Node`] in the [`Tree#nodes`][`Tree#structfield.nodes`].
     ///
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let current_node = Node::new("x", "Some node.");
     /// tree.nodes.insert("x".to_owned(), current_node);
     /// unsafe { tree.set_current_key_unchecked("x"); }
@@ -265,7 +265,7 @@ impl CTree {
         self.current_key = Some(node_key.to_owned());
     }
 
-    /// Try to rewind the current node key for a [`CTree`] back to the root key by cloning the root key. If you want to rewind the current node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`rewind_unchecked`][`CTree#method.rewind_unchecked`].
+    /// Try to rewind the current node key for a [`Tree`] back to the root key by cloning the root key. If you want to rewind the current node without any [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules), try [`rewind_unchecked`][`Tree#method.rewind_unchecked`].
     ///
     /// # Errors
     ///
@@ -274,8 +274,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_node = Node::new("root", "The root.");
     /// let current_node = Node::new("x", "Some node.");
     /// tree.nodes.insert("root".to_owned(), root_node);
@@ -294,13 +294,13 @@ impl CTree {
         Ok(())
     }
 
-    /// Rewind the current node key for a [`CTree`] back to the root key by cloning the root key.
+    /// Rewind the current node key for a [`Tree`] back to the root key by cloning the root key.
     ///
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let current_node = Node::new("x", "Some node.");
     /// tree.nodes.insert("x".to_owned(), current_node);
     /// tree.set_current_key("x").unwrap();
@@ -316,8 +316,8 @@ impl CTree {
     /// # Examples
     ///
     /// ```
-    /// use convo::{CTree, Node};
-    /// let mut tree = CTree::new();
+    /// use convo::{Tree, Node};
+    /// let mut tree = Tree::new();
     /// let root_node = Node::new("root", "The root.");
     /// tree.nodes.insert("root".to_owned(), root_node);
     /// tree.set_root_key("root").unwrap();
@@ -337,22 +337,22 @@ impl CTree {
 #[test]
 fn test_try_from() {
     let bad_source = "not valid source";
-    assert!(CTree::try_from(bad_source).is_err());
+    assert!(Tree::try_from(bad_source).is_err());
 
-    let mut good_file = std::fs::File::open("examples/dialogue_files/ex_1.ctree.yml").unwrap();
+    let mut good_file = std::fs::File::open("examples/dialogue_files/ex_1.convo.yml").unwrap();
     let mut good_source = String::new();
     std::io::Read::read_to_string(&mut good_file, &mut good_source).unwrap();
 
-    assert!(CTree::try_from(&good_source).is_ok());
+    assert!(Tree::try_from(&good_source).is_ok());
 }
 
 #[test]
 fn test_try_export() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should fail because validation checks fail
     assert!(tree
-        .try_export("examples/dialogue_files/export.ctree.yml")
+        .try_export("examples/dialogue_files/export.convo.yml")
         .is_err());
 
     // Qualify the tree
@@ -362,13 +362,13 @@ fn test_try_export() {
 
     // Should pass because tree is valid
     assert!(tree
-        .try_export("examples/dialogue_files/export.ctree.yml")
+        .try_export("examples/dialogue_files/export.convo.yml")
         .is_ok());
 }
 
 #[test]
 fn test_root_key() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should be none because no root key has been set yet
     assert!(tree.root_key().is_none());
@@ -381,7 +381,7 @@ fn test_root_key() {
 
 #[test]
 fn test_root_node() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should be none because no root key has been set yet
     assert!(tree.root_node().is_none());
@@ -398,7 +398,7 @@ fn test_root_node() {
 
 #[test]
 fn test_set_root_key() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should fail because node does not exist in the map yet
     assert!(tree.set_root_key("root").is_err());
@@ -414,7 +414,7 @@ fn test_set_root_key() {
 
 #[test]
 fn test_set_root_key_unchecked() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
     unsafe { tree.set_root_key_unchecked("root") }
 
     // Ensure root key was set
@@ -423,7 +423,7 @@ fn test_set_root_key_unchecked() {
 
 #[test]
 fn test_current_key() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should be none because no current key has been set yet
     assert!(tree.current_key().is_none());
@@ -436,7 +436,7 @@ fn test_current_key() {
 
 #[test]
 fn test_current_node() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should be none because no current key has been set yet
     assert!(tree.current_node().is_none());
@@ -453,7 +453,7 @@ fn test_current_node() {
 
 #[test]
 fn test_set_current_key() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Should fail because node does not exist in the map yet
     assert!(tree.set_current_key("current").is_err());
@@ -469,7 +469,7 @@ fn test_set_current_key() {
 
 #[test]
 fn test_set_current_key_unchecked() {
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
     unsafe { tree.set_current_key_unchecked("current") }
 
     // Ensure current key was set
@@ -479,7 +479,7 @@ fn test_set_current_key_unchecked() {
 #[test]
 fn test_rewind() {
     // Set up tree with a root and additional node
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
     let root_node = Node::new("root", "The root node.");
     let current_node = Node::new("current", "A node.");
     tree.nodes.insert("root".to_owned(), root_node);
@@ -500,7 +500,7 @@ fn test_rewind() {
 #[test]
 fn test_rewind_unchecked() {
     // Set up tree with a root and additional node
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
     let root_node = Node::new("root", "The root node.");
     let current_node = Node::new("current", "A node.");
     tree.nodes.insert("root".to_owned(), root_node);
@@ -517,7 +517,7 @@ fn test_rewind_unchecked() {
 #[test]
 fn test_reset() {
     // Set up tree with a root and additional node
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
     let root_node = Node::new("root", "The root node.");
     tree.nodes.insert("root".to_owned(), root_node);
     tree.set_root_key("root").unwrap();

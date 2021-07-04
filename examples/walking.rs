@@ -5,26 +5,26 @@ use std::{
     path::Path,
 };
 
-use convo::CTree;
+use convo::Tree;
 
 fn main() {
-    // Select CTree file path
-    let path = Path::new("examples/dialogue_files/ex_1.ctree.yml");
+    // Select Tree file path
+    let path = Path::new("examples/dialogue_files/ex_1.convo.yml");
     println!("Selected file: {}", path.to_str().unwrap());
 
-    //Parse path to CTree
+    //Parse path to Tree
     print!("Parsing...");
-    let ctree = convo::parser::parse(path).unwrap();
+    let tree = convo::parser::parse(path).unwrap();
     println!("Complete.");
     println!("Starting...\nYou may enter 'Q' to quit anytime.\n");
 
-    // Walk the CTree
-    walk(ctree);
+    // Walk the Tree
+    walk(tree);
 }
 
-fn walk(mut ctree: CTree) {
+fn walk(mut tree: Tree) {
     // Walk the structure
-    'walk: while let Some(current) = ctree.current_node() {
+    'walk: while let Some(current) = tree.current_node() {
         // Print node dialogue
         println!("{}", current.dialogue);
 
@@ -50,7 +50,7 @@ fn walk(mut ctree: CTree) {
             if let Ok(link_id) = line.parse::<usize>() {
                 if let Some(link) = current.links.get(link_id) {
                     let link_key = link.to_key.clone();
-                    ctree.set_current_key(&link_key).unwrap();
+                    tree.set_current_key(&link_key).unwrap();
                 }
             }
         }

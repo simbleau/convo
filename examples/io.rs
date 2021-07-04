@@ -2,10 +2,10 @@ use std::path::Path;
 
 pub fn main() {
     // Importing a tree file
-    let path = Path::new("examples/dialogue_files/ex_min.ctree.yml");
+    let path = Path::new("examples/dialogue_files/ex_min.convo.yml");
     println!("Selected file: {}", path.to_str().unwrap());
 
-    //Parse path to CTree
+    //Parse path to Tree
     print!("Parsing...");
     let tree = convo::parser::parse(path).unwrap();
     println!("Complete.");
@@ -15,7 +15,7 @@ pub fn main() {
 
     // Export the tree to a new file
     print!("Exporting...");
-    tree.try_export("examples/dialogue_files/export.ctree.yml")
+    tree.try_export("examples/dialogue_files/export.convo.yml")
         .unwrap();
     println!("Complete.");
 }

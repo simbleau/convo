@@ -49,16 +49,16 @@ convo = "0.0.0" # Not released
 ## Terminology
 
 (Names subject to change per [#4](https://github.com/simbleau/convo/issues/4))
-  * **CTree** - the parent container for a conversation tree.
+  * **Tree** - the parent container for a conversation tree.
   * **Node** - a node in a conversation tree which acts as a fork of decisions by wrapping prompting dialogue and a list of path options (called `Link`s).
   * **Link** - a uni-directional path to a [`Node`].
 
 ## Examples
 
 Check out these important examples:
-  * [Building a `CTree` imperatively](examples/building.rs)
-  * [Importing/Exporting `*.ctree.yml` files](examples/io.rs)
-  * [Walking a `CTree`](examples/walking.rs)
+  * [Building a `Tree` imperatively](examples/building.rs)
+  * [Importing/Exporting `*.convo.yml` files](examples/io.rs)
+  * [Walking a `Tree`](examples/walking.rs)
 
 ## Formatting Rules
 

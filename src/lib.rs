@@ -18,4 +18,4 @@ mod tree;
 
 pub use link::Link;
 pub use node::Node;
-pub use tree::CTree;
+pub use tree::Tree;

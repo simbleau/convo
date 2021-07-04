@@ -1,8 +1,8 @@
-use convo::{CTree, Link, Node};
+use convo::{Link, Node, Tree};
 
 fn main() {
     // Make a new tree
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
 
     // Declare a root key
     let root_key = "start";
