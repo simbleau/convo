@@ -41,7 +41,7 @@ The intent is to safely import and export conversation trees, as well as walk co
 The easiest way to use convo is by adding the lone dependency to your `Cargo.toml` file:
 
 ```toml
-convo = "0.1.0"
+convo = "0.1.2"
 ```
 
 # Getting Started
