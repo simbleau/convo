@@ -10,7 +10,7 @@
 
 pub mod error;
 pub mod exporter;
-pub mod parser;
+pub mod importer;
 
 mod link;
 mod node;
@@ -18,4 +18,4 @@ mod tree;
 
 pub use link::Link;
 pub use node::Node;
-pub use tree::CTree;
+pub use tree::Tree;

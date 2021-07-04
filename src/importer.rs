@@ -1,16 +1,16 @@
-//! A family of functions which parse YAML into [`CTree`]s.
+//! A family of functions which parse YAML into [`Tree`]s.
 
 use crate::{
-    error::{ParseError, TreeError},
+    error::{ImportError, TreeError},
     link::Link,
     node::Node,
-    tree::CTree,
+    tree::Tree,
 };
 
 use std::{fs::File, io::Read, path::Path};
 use yaml_rust::{Yaml, YamlLoader};
 
-/// Try to returns a [`CTree`] which is generated from parsing a file.
+/// Try to returns a [`Tree`] which is generated from importing a file.
 ///
 /// # Arguments
 ///
@@ -19,27 +19,27 @@ use yaml_rust::{Yaml, YamlLoader};
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// * An [`ImportError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
 /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
 /// ```
-/// use convo::parser;
-/// let tree = parser::parse("examples/dialogue_files/ex_min.ctree.yml").unwrap();
+/// use convo::importer;
+/// let tree = importer::import("examples/dialogue_files/ex_min.convo.yml").unwrap();
 /// ```
-pub fn parse<P>(path: P) -> Result<CTree, ParseError>
+pub fn import<P>(path: P) -> Result<Tree, ImportError>
 where
     P: AsRef<Path>,
 {
     let source = get_file_source(path)?;
-    let convo_tree = source_to_ctree(&source)?;
+    let convo_tree = source_to_tree(&source)?;
 
-    // Return the CTree
+    // Return the Tree
     Ok(convo_tree)
 }
 
-/// Try to returns a [`CTree`] which is generated from parsing a string slice.
+/// Try to returns a [`Tree`] which is generated from parsing a string slice.
 ///
 /// # Arguments
 ///
@@ -48,13 +48,13 @@ where
 ///
 /// # Errors
 ///
-/// * A [`ParseError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
+/// * A [`ImportError`] will be returned if the source is not valid YAML data or if the tree is not considered legal when parsing.
 /// See also: [validation rules](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
 ///
 /// # Examples
 ///
 /// ```
-/// use convo::parser;
+/// use convo::importer;
 /// let source = r#"
 /// ---
 /// root: start
@@ -64,23 +64,23 @@ where
 ///         links:
 ///             - start: Recurse!
 /// "#;
-/// let tree = parser::source_to_ctree(source).unwrap();
+/// let tree = importer::source_to_tree(source).unwrap();
 /// ```
-pub fn source_to_ctree(source: &str) -> Result<CTree, ParseError> {
+pub fn source_to_tree(source: &str) -> Result<Tree, ImportError> {
     // Parse the YAML
     let docs = YamlLoader::load_from_str(source)?;
     if docs.len() != 1 {
-        return Err(ParseError::MultipleDocumentsProvided());
+        return Err(ImportError::MultipleDocumentsProvided());
     }
     let yaml = &docs[0];
 
-    // Convert YAML to CTree
-    let ctree = yaml_to_ctree(yaml)?;
+    // Convert YAML to Tree
+    let tree = yaml_to_tree(yaml)?;
 
-    Ok(ctree)
+    Ok(tree)
 }
 
-fn get_file_source<P>(path: P) -> Result<String, ParseError>
+fn get_file_source<P>(path: P) -> Result<String, ImportError>
 where
     P: AsRef<Path>,
 {
@@ -92,7 +92,7 @@ where
     Ok(buf)
 }
 
-fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
+fn yaml_to_tree(yaml: &Yaml) -> Result<Tree, ImportError> {
     // This needs some major cleanup
 
     let root_key = yaml["root"].as_str().ok_or_else(|| {
@@ -109,7 +109,7 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
     }
 
     // Insert nodes
-    let mut tree = CTree::new();
+    let mut tree = Tree::new();
     for (key, value) in node_map.iter() {
         let node = yaml_to_node(key, value)?;
         tree.nodes.insert(node.key.clone(), node);
@@ -129,7 +129,7 @@ fn yaml_to_ctree(yaml: &Yaml) -> Result<CTree, ParseError> {
     Ok(tree)
 }
 
-fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
+fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ImportError> {
     // Unwrap name
     let key = yaml_key.as_str().ok_or_else(|| {
         TreeError::Validation(format!("YAML key is not a string: `{:?}`", yaml_key))
@@ -163,7 +163,7 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ParseError> {
     Ok(node)
 }
 
-fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
+fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ImportError> {
     // Unwrap link array
     let links = yaml.as_vec().ok_or_else(|| {
         TreeError::Validation(format!("YAML link data is not an array: '{:?}'", yaml))
@@ -197,16 +197,16 @@ fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ParseError> {
 
 #[cfg(test)]
 #[test]
-fn test_parse() {
-    let bad_file = "examples/dialogue_files/ex_bad.ctree.yml";
-    assert!(parse(bad_file).is_err());
+fn test_import() {
+    let bad_file = "examples/dialogue_files/ex_bad.convo.yml";
+    assert!(import(bad_file).is_err());
 
-    let good_file = "examples/dialogue_files/ex_min.ctree.yml";
-    assert!(parse(good_file).is_ok());
+    let good_file = "examples/dialogue_files/ex_min.convo.yml";
+    assert!(import(good_file).is_ok());
 }
 
 #[test]
-fn test_source_to_ctree() {
+fn test_source_to_tree() {
     // Test a minimal valid source
     let source = r#"---
     root: start
@@ -214,18 +214,20 @@ fn test_source_to_ctree() {
         start:
             dialogue: "It's a bad day."
     "#;
-    assert!(source_to_ctree(source).is_ok());
+    assert!(source_to_tree(source).is_ok());
 }
 
 #[test]
-fn test_source_to_ctree_root_exists() {
+fn test_source_to_tree_root_exists() {
+    use crate::error::ImportError::Validation;
+
     // Invalid: YAML must contain a top-level element called `root`.
     let source = r#"---
     nodes:
         start:
             dialogue: "It's a bad day."
     "#;
-    assert!(source_to_ctree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 
     // Invalid: YAML must contain a top-level element called `root` which points to a real node
     let source = r#"---
@@ -234,21 +236,25 @@ fn test_source_to_ctree_root_exists() {
         start:
             dialogue: "It's a bad day."
     "#;
-    assert!(source_to_ctree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
-fn test_source_to_ctree_nodes_exist() {
+fn test_source_to_tree_nodes_exist() {
+    use crate::error::ImportError::Validation;
+
     // Invalid: `nodes` must contain at least 1 node.
     let source = r#"---
     root: start
     nodes:
     "#;
-    assert!(source_to_ctree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
-fn test_source_to_ctree_attributes() {
+fn test_source_to_tree_attributes() {
+    use crate::error::ImportError::Validation;
+
     // `start` does not contain dialogue.
     let source = r#"---
     root: start
@@ -259,12 +265,14 @@ fn test_source_to_ctree_attributes() {
         end:
             dialogue: "Ok, let's talk some other time."
     "#;
-    assert!(source_to_ctree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
 #[ignore = "Waiting on issue #3"]
-fn test_source_to_ctree_unreachable_nodes() {
+fn test_source_to_tree_unreachable_nodes() {
+    use crate::error::ImportError::Validation;
+
     // `end` is an orphan node. It is not reachable.
     let source = r#"---
     root: start
@@ -274,7 +282,7 @@ fn test_source_to_ctree_unreachable_nodes() {
         end:
             dialogue: "Ok, let's talk some other time."
     "#;
-    assert!(source_to_ctree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 
     // `end` and `fork` are orphans because the root node (`start`) is a leaf node.
     let source = r#"---
@@ -291,12 +299,14 @@ fn test_source_to_ctree_unreachable_nodes() {
         end:
             dialogue: "Ok, let's talk some other time."
     "#;
-    assert!(source_to_ctree(source).is_err());
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }
 
 #[test]
 #[ignore = "Waiting on issue #10"]
-fn test_source_to_ctree_invalid_links() {
+fn test_source_to_tree_invalid_links() {
+    use crate::error::ImportError::Validation;
+
     // `not_a_real_key` is an invalid reference key.
     let source = r#"---
     root: start
@@ -307,5 +317,6 @@ fn test_source_to_ctree_invalid_links() {
                 - start: "I am valid and link to myself"
                 - not_a_real_key: "I do not link to a valid key"
     "#;
-    assert!(source_to_ctree(source).is_err());
+
+    assert!(matches!(source_to_tree(source).unwrap_err(), Validation(_)));
 }

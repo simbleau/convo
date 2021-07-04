@@ -1,11 +1,11 @@
-use convo::{CTree, Link, Node};
+use convo::{Link, Node, Tree};
 
 extern crate convo;
 
 #[test]
 // Basic print out of all nodes and links - Not a great test
 fn test_print() {
-    let mut tree = CTree::default();
+    let mut tree = Tree::new();
 
     // Build some nodes
     let root_key = "root";
