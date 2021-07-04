@@ -56,9 +56,9 @@ convo = "0.0.0" # Not released
 ## Examples
 
 Check out these important examples:
-  * [Building a `Tree` imperatively](examples/building.rs)
+  * [Building a conversation `Tree` imperatively](examples/building.rs)
   * [Importing/Exporting `*.convo.yml` files](examples/io.rs)
-  * [Walking a `Tree`](examples/walking.rs)
+  * [Walking a conversation `Tree`](examples/walking.rs)
 
 ## Formatting Rules
 
