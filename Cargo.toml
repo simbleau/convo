@@ -9,7 +9,7 @@ homepage = "https://crates.io/crates/convo"
 documentation = "https://docs.rs/convo"
 readme = "README.md"
 repository = "https://github.com/rust-lang/cargo"
-keywords = ["dialogue", "conversation", "convo", "tree", "executor", "parser", "yaml", "yml", "node", "link"]
+keywords = ["dialogue", "conversation", "tree", "yaml"]
 categories = ["data-structures", "game-development", "parser-implementations", "text-processing"]
 exclude = [
     "assets/",
