@@ -69,7 +69,7 @@ where
 /// assert_eq!(source, source2);
 /// ```
 pub fn tree_to_source(tree: &Tree) -> Result<String, ExportError> {
-    let yaml = tree_to_yaml(&tree)?;
+    let yaml = tree_to_yaml(tree)?;
 
     // Convert to source text
     let mut writer = String::new();
@@ -82,10 +82,10 @@ pub fn tree_to_source(tree: &Tree) -> Result<String, ExportError> {
 
 fn tree_to_yaml(tree: &Tree) -> Result<Yaml, TreeError> {
     // Check root key exists
-    let root_key = tree.root_key().ok_or_else(|| TreeError::RootNotSet())?;
+    let root_key = tree.root_key().ok_or_else(TreeError::RootNotSet)?;
 
     // Check length of nodes
-    if tree.nodes.len() == 0 {
+    if tree.nodes.is_empty() {
         return Err(TreeError::Validation("Node map has a length of 0".into()));
     }
 
@@ -93,7 +93,7 @@ fn tree_to_yaml(tree: &Tree) -> Result<Yaml, TreeError> {
     let mut node_map = yaml::Hash::new();
     for (key, node) in &tree.nodes {
         let yaml_key = Yaml::String(key.to_owned());
-        let yaml_node = node_to_yaml(&node)?;
+        let yaml_node = node_to_yaml(node)?;
         node_map.insert(yaml_key, yaml_node);
     }
 

@@ -104,7 +104,7 @@ fn yaml_to_tree(yaml: &Yaml) -> Result<Tree, ImportError> {
     })?;
 
     // Check length of nodes
-    if node_map.len() == 0 {
+    if node_map.is_empty() {
         return Err(TreeError::Validation("Node map has a length of 0".into()).into());
     }
 
@@ -122,8 +122,8 @@ fn yaml_to_tree(yaml: &Yaml) -> Result<Tree, ImportError> {
 
     // Safety : Sound code - root node guaranteed to exist, per above
     unsafe {
-        tree.set_root_key_unchecked(&root_key);
-        tree.set_current_key_unchecked(&root_key);
+        tree.set_root_key_unchecked(root_key);
+        tree.set_current_key_unchecked(root_key);
     }
 
     Ok(tree)
@@ -157,7 +157,7 @@ fn yaml_to_node(yaml_key: &Yaml, yaml_data: &Yaml) -> Result<Node, ImportError> 
     if let Some(yaml_links) = data.get(&Yaml::from_str("links")) {
         // Unwrap links
         let links = yaml_to_links(yaml_links)?;
-        &node.links.extend(links);
+        node.links.extend(links);
     };
 
     Ok(node)
@@ -169,7 +169,7 @@ fn yaml_to_links(yaml: &Yaml) -> Result<Vec<Link>, ImportError> {
         TreeError::Validation(format!("YAML link data is not an array: '{:?}'", yaml))
     })?;
 
-    if links.len() == 0 {
+    if links.is_empty() {
         return Err(TreeError::Validation("Links array has a length of 0".into()).into());
     }
 

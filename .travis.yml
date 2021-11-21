@@ -10,3 +10,4 @@ jobs:
 script:
   - cargo build --verbose --workspace
   - cargo test --verbose --workspace
+  - cargo clippy --verbose --workspace
