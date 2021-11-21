@@ -69,7 +69,7 @@ impl Tree {
     /// let tree = Tree::try_from(source).unwrap();
     /// ```
     pub fn try_from(source: &str) -> Result<Self, ImportError> {
-        Ok(crate::importer::source_to_tree(source)?)
+        crate::importer::source_to_tree(source)
     }
 
     /// Try to export a [`Tree`] to a file. The preferred file extension is `*.convo.yml`.
@@ -94,7 +94,7 @@ impl Tree {
     where
         P: AsRef<Path>,
     {
-        Ok(exporter::export(self, path)?)
+        exporter::export(self, path)
     }
 
     /// Returns an [`Option`] which references a copy of the root [`Node#key`][`Node#structfield.key`].
@@ -165,7 +165,11 @@ impl Tree {
         Ok(())
     }
 
-    /// Set the root node key for a [`Tree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules). Unlike [`set_root_key`][`Tree#method.set_root_key`], this method will **not** incur side effects to [`Tree#current`][`Tree#structfield.current`] in any way.
+    /// Set the root node key for a [`Tree`]. Unlike [`set_root_key`][`Tree#method.set_root_key`], this method will **not** incur side effects to [`Tree#current`][`Tree#structfield.current`] in any way.
+    ///
+    /// # Safety
+    ///
+    /// This function doesn't perform [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Arguments
     ///
@@ -246,7 +250,11 @@ impl Tree {
         Ok(())
     }
 
-    /// Set the current node key for a [`Tree`] without [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
+    /// Set the current node key for a [`Tree`].
+    ///
+    /// # Safety
+    ///
+    /// This function doesn't perform [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Arguments
     ///
@@ -295,6 +303,10 @@ impl Tree {
     }
 
     /// Rewind the current node key for a [`Tree`] back to the root key by cloning the root key.
+    ///
+    /// # Safety
+    ///
+    /// This function doesn't perform [validation checks](https://github.com/simbleau/convo/blob/dev/FORMATTING.md#validation-rules).
     ///
     /// # Examples
     ///

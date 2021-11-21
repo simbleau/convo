@@ -46,12 +46,10 @@ fn walk(mut tree: Tree) {
         // Handle user input
         if line.trim().eq_ignore_ascii_case("q") {
             break 'walk; // User quit
-        } else {
-            if let Ok(link_id) = line.parse::<usize>() {
-                if let Some(link) = current.links.get(link_id) {
-                    let link_key = link.to_key.clone();
-                    tree.set_current_key(&link_key).unwrap();
-                }
+        } else if let Ok(link_id) = line.parse::<usize>() {
+            if let Some(link) = current.links.get(link_id) {
+                let link_key = link.to_key.clone();
+                tree.set_current_key(&link_key).unwrap();
             }
         }
     }
