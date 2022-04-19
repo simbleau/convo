@@ -4,7 +4,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/convo)](https://crates.io/crates/convo)
 [![Documentation](https://docs.rs/convo/badge.svg)](https://docs.rs/convo)
-[![Build Status](https://github.com/simbleau/convo/actions/workflows/build.yml/badge.svg)](https://github.com/simbleau/convo/actions)
+[![Build Status](https://github.com/simbleau/vgpu-bench/workflows/build/badge.svg)](https://github.com/simbleau/convo/actions/workflows/build.yml)
 [![Dependency Status](https://deps.rs/repo/github/simbleau/convo/status.svg)](https://deps.rs/repo/github/simbleau/convo)
 
 A modern dialogue executor and tree parser using [YAML](https://yaml.org/). 
