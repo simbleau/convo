@@ -1,4 +1,4 @@
-name: Test
+name: Build
 
 on:
   push:
@@ -17,8 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: cargo build --verbose --workspace
+      run: cargo build --verbose
     - name: Run tests
-      run: cargo test --verbose --workspace
-    - name: Run Clippy
-      run: cargo clippy --verbose --workspace
+      run: cargo test --verbose
