@@ -21,7 +21,7 @@ exclude = [
 text_io = "0.1.10"
 
 [dependencies]
-indexmap = "1.8"
+indexmap = "1.9"
 yaml-rust = "0.4.5"
 # serde = "1.0" - Waiting on serde/serde_yaml addition
 # serde_yaml = "0.8" - Waiting on serde/serde_yaml addition
